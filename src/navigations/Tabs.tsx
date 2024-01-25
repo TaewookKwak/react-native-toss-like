@@ -18,6 +18,7 @@ const Tabs = () => {
       initialRouteName="Home"
       screenOptions={{
         tabBarShowLabel: false,
+        tabBarHideOnKeyboard: true,
         tabBarStyle: {
           ...styles.tabBar,
           height: 100 + insets.bottom,
