@@ -12,7 +12,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LoginPage from '@screens/login';
 import WelcomePage from '@screens/welcome';
 import React, {useState} from 'react';
-import {useColorScheme} from 'react-native';
+import {KeyboardAvoidingView, Platform, useColorScheme} from 'react-native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 

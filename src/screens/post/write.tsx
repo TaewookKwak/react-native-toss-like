@@ -75,19 +75,18 @@ const WriteScreen: React.FC<NavigationProps> = ({navigation}) => {
     <SafeAreaView style={styles.container}>
       {/* 해더 */}
       <Header title="편지 쓰기" isGoBack={true} />
-      <ScrollView>
-        {/* 편지지 색상 팔레트 */}
-        {component === 0 ? (
-          <PalatteComponent
-            letterColorPalatte={letterColorPalatte}
-            setSelectedColor={setSelectedColor}
-            selectedColor={selectedColor}
-            setComponent={setComponent}
-          />
-        ) : (
-          <LetterWritingComponent />
-        )}
-      </ScrollView>
+
+      {/* 편지지 색상 팔레트 */}
+      {component === 0 ? (
+        <PalatteComponent
+          letterColorPalatte={letterColorPalatte}
+          setSelectedColor={setSelectedColor}
+          selectedColor={selectedColor}
+          setComponent={setComponent}
+        />
+      ) : (
+        <LetterWritingComponent />
+      )}
     </SafeAreaView>
   );
 };
@@ -152,30 +151,31 @@ const LetterWritingComponent = () => {
   const maxLength = 1000;
 
   return (
-    <View style={styles.inputContainer}>
-      <KeyboardAvoidingView
-        behavior={Platform.select({ios: 'padding', android: undefined})}
-        style={styles.avoid}
-      />
-      <TextInput
-        style={styles.input}
-        editable
-        multiline
-        textAlignVertical="top"
-        onChangeText={newText => setText(newText)}
-        value={text}
-        maxLength={maxLength}
-        autoFocus={true}
-      />
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      enabled
+      style={styles.avoid}
+      keyboardVerticalOffset={0}>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          editable
+          multiline
+          textAlignVertical="top"
+          onChangeText={newText => setText(newText)}
+          value={text}
+          maxLength={maxLength}
+          autoFocus={true}
+        />
+        <View style={styles.counterContainer}>
+          <Text style={styles.counter}>{`${text.length}/${maxLength}`}</Text>
+        </View>
 
-      <View style={styles.counterContainer}>
-        <Text style={styles.counter}>{`${text.length}/${maxLength}`}</Text>
+        <DotButton style={{width: '100%'}}>
+          <DotButton.ButtonText>Send</DotButton.ButtonText>
+        </DotButton>
       </View>
-
-      <DotButton style={{width: '100%'}}>
-        <DotButton.ButtonText>편지 보내기</DotButton.ButtonText>
-      </DotButton>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -221,20 +221,20 @@ const styles = StyleSheet.create({
 
   // 편지 쓰기 컴포넌트
   inputContainer: {
+    maxHeight: 500,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     marginHorizontal: 20,
   },
   input: {
-    height: 400,
+    flex: 1,
     borderWidth: 1,
     borderColor: '#000',
     borderRadius: 10,
     alignSelf: 'stretch',
   },
   counterContainer: {
-    flex: 1,
     alignSelf: 'stretch',
   },
   counter: {
