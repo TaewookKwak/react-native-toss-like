@@ -2,6 +2,8 @@ import Alert from '@components/compound-components/alert.compound';
 import DotButton from '@components/compound-components/button-dot.compound';
 import LetterPreview from '@components/letter/letter.component';
 import ThreeHeartSvg from '@components/svgs/svg-three-hearts.component';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+
 import React from 'react';
 import {
   Dimensions,
@@ -63,7 +65,10 @@ const data: LetterProp[] = [
   },
 ];
 
-const PostPage = () => {
+const PostScreen = ({navigation}) => {
+  const handlePressWrite = () => {
+    navigation.push('WriteScreen');
+  };
   return (
     <SafeAreaView style={[styles.container]}>
       {/* 해더 */}
@@ -73,7 +78,7 @@ const PostPage = () => {
 
       {/* 편지쓰기 */}
       <View style={styles.buttonContainer}>
-        <DotButton>
+        <DotButton onPress={handlePressWrite}>
           <DotButton.ButtonText>편지 쓰기</DotButton.ButtonText>
         </DotButton>
       </View>
@@ -106,8 +111,6 @@ const PostPage = () => {
     </SafeAreaView>
   );
 };
-
-export default PostPage;
 
 const styles = StyleSheet.create({
   container: {
@@ -149,3 +152,5 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 });
+
+export default PostScreen;

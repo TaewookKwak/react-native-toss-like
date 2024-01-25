@@ -6,15 +6,15 @@
  */
 
 import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
+import Tabs from '@navigations/tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import LoginPage from '@screens/login';
+import WelcomePage from '@screens/welcome';
 import React, {useState} from 'react';
-import {StyleSheet, useColorScheme} from 'react-native';
+import {useColorScheme} from 'react-native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import WelcomePage from '@screens/welcome';
-import LoginPage from '@screens/login';
-import Tabs from '@navigations/Tabs';
 
 const Stack = createNativeStackNavigator();
 
@@ -56,11 +56,6 @@ function App(): JSX.Element {
                     component={Tabs}
                     options={{headerShown: false}}
                   />
-                  {/* <Stack.Screen
-                    name="Drawers"
-                    component={Drawers}
-                    options={{headerShown: false}}
-                  /> */}
                 </Stack.Group>
               ) : (
                 // Auth screens
@@ -79,7 +74,5 @@ function App(): JSX.Element {
     </GestureHandlerRootView>
   );
 }
-
-const styles = StyleSheet.create({});
 
 export default App;

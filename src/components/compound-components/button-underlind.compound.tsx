@@ -4,9 +4,27 @@
  * <UnderlineButton.ButtonText> 버튼 텍스트
  */
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {
+  StyleProp,
+  StyleSheet,
+  Text,
+  TextStyle,
+  TouchableOpacity,
+  ViewStyle,
+} from 'react-native';
 
-const UnderlineButton = ({children, style, ...props}) => {
+type ButtonProps = {
+  children?: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
+  onPress?: () => void;
+};
+
+type ButtonTextProps = {
+  children?: React.ReactNode;
+  style?: StyleProp<TextStyle>;
+};
+
+const UnderlineButton = ({children, style, ...props}: ButtonProps) => {
   return (
     <TouchableOpacity style={[styles.button, style]} {...props}>
       {children}
@@ -14,7 +32,7 @@ const UnderlineButton = ({children, style, ...props}) => {
   );
 };
 
-const ButtonText = ({children, style, ...props}) => {
+const ButtonText = ({children, style, ...props}: ButtonTextProps) => {
   return (
     <Text style={[styles.text, style]} {...props}>
       {children}

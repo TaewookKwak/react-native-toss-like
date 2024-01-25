@@ -1,12 +1,12 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import PostScreens from '@screens/post';
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import IconFth from 'react-native-vector-icons/Feather';
+import DiaryPage from '../screens/diary';
 import HomePage from '../screens/home';
 import StoryPage from '../screens/story';
-import PostPage from '../screens/post';
-import DiaryPage from '../screens/diary';
 
 const Tab = createBottomTabNavigator();
 
@@ -97,7 +97,7 @@ const Tabs = () => {
       />
       <Tab.Screen
         name="Post"
-        component={PostPage}
+        component={PostScreens}
         options={{
           headerShown: false,
           title: '우편함',
