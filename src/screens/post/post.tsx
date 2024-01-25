@@ -1,5 +1,6 @@
 import Alert from '@components/compound-components/alert.compound';
 import DotButton from '@components/compound-components/button-dot.compound';
+import Header from '@components/layout/header-component';
 import LetterPreview from '@components/letter/letter.component';
 import ThreeHeartSvg from '@components/svgs/svg-three-hearts.component';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -72,9 +73,7 @@ const PostScreen = ({navigation}) => {
   return (
     <SafeAreaView style={[styles.container]}>
       {/* 해더 */}
-      <View style={styles.header}>
-        <Text style={styles.headerText}>우편함</Text>
-      </View>
+      <Header title="우편함" />
 
       {/* 편지쓰기 */}
       <View style={styles.buttonContainer}>
@@ -115,8 +114,9 @@ const PostScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'white',
     position: 'relative',
-    marginHorizontal: 20,
+    paddingHorizontal: 20,
   },
   alert: {
     position: 'absolute',
