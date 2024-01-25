@@ -20,7 +20,7 @@ const Tabs = () => {
         tabBarShowLabel: false,
         tabBarStyle: {
           ...styles.tabBar,
-          height: 110 + insets.bottom,
+          height: 100 + insets.bottom,
         },
       }}>
       <Tab.Screen
@@ -173,8 +173,6 @@ const Tabs = () => {
 
 const styles = StyleSheet.create({
   tabBar: {
-    position: 'absolute',
-    elevation: 1,
     backgroundColor: 'white',
   },
   tabBarText: {

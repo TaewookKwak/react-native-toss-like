@@ -87,14 +87,8 @@ const PostPage = () => {
           return <View style={{height: 12}} />;
         }}
         showsVerticalScrollIndicator={false}
-        renderItem={({item, index, separators}) => {
-          return (
-            <LetterPreview
-              id={item.id}
-              date={item.date}
-              content={item.content}
-            />
-          );
+        renderItem={({item}) => {
+          return <LetterPreview date={item.date} content={item.content} />;
         }}
       />
 
@@ -123,7 +117,7 @@ const styles = StyleSheet.create({
   },
   alert: {
     position: 'absolute',
-    bottom: 120,
+    bottom: 20,
     left: '50%', // 부모 컨테이너의 가운데로 이동
     transform: [{translateX: -(screenWidth - 16) / 2}], // 자신의 너비의 반만큼 왼쪽으로 이동
 
