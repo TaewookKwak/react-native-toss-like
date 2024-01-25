@@ -4,9 +4,9 @@ import {StyleSheet, Text, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import IconFth from 'react-native-vector-icons/Feather';
 import HomePage from '../screens/home';
-import BenefitsPage from '../screens/benefits';
-import PayPage from '../screens/pay';
-import AllPage from '../screens/all';
+import StoryPage from '../screens/story';
+import PostPage from '../screens/post';
+import DiaryPage from '../screens/diary';
 
 const Tab = createBottomTabNavigator();
 
@@ -28,7 +28,7 @@ const Tabs = () => {
         component={HomePage}
         options={{
           headerShown: false,
-          title: '홈',
+          title: '메인',
           tabBarIcon: ({focused}) => (
             <View
               style={[
@@ -53,18 +53,18 @@ const Tabs = () => {
                       : styles.inactiveTabBarText.color,
                   },
                 ]}>
-                홈
+                메인
               </Text>
             </View>
           ),
         }}
       />
       <Tab.Screen
-        name="Benefits"
-        component={BenefitsPage}
+        name="Story"
+        component={StoryPage}
         options={{
           headerShown: false,
-          title: '혜택',
+          title: '스토리',
           tabBarIcon: ({focused}) => (
             <View
               style={[
@@ -72,7 +72,7 @@ const Tabs = () => {
                 focused && styles.avtiveTabBarIconContainer,
               ]}>
               <IconFth
-                name="home"
+                name="book"
                 size={20}
                 color={
                   focused
@@ -89,18 +89,18 @@ const Tabs = () => {
                       : styles.inactiveTabBarText.color,
                   },
                 ]}>
-                혜택
+                스토리
               </Text>
             </View>
           ),
         }}
       />
       <Tab.Screen
-        name="Pay"
-        component={PayPage}
+        name="Post"
+        component={PostPage}
         options={{
           headerShown: false,
-          title: '페이',
+          title: '우편함',
           tabBarIcon: ({focused}) => (
             <View
               style={[
@@ -108,7 +108,7 @@ const Tabs = () => {
                 focused && styles.avtiveTabBarIconContainer,
               ]}>
               <IconFth
-                name="life-buoy"
+                name="mail"
                 size={20}
                 color={
                   focused
@@ -125,18 +125,18 @@ const Tabs = () => {
                       : styles.inactiveTabBarText.color,
                   },
                 ]}>
-                페이
+                우편함
               </Text>
             </View>
           ),
         }}
       />
       <Tab.Screen
-        name="All"
-        component={AllPage}
+        name="Diary"
+        component={DiaryPage}
         options={{
           headerShown: false,
-          title: '전체',
+          title: '다이어리',
           tabBarIcon: ({focused}) => (
             <View
               style={[
@@ -161,7 +161,7 @@ const Tabs = () => {
                       : styles.inactiveTabBarText.color,
                   },
                 ]}>
-                전체
+                다이어리
               </Text>
             </View>
           ),

@@ -12,9 +12,9 @@ import React, {useState} from 'react';
 import {StyleSheet, useColorScheme} from 'react-native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import WelcomePage from './src/screens/welcome';
-import LoginPage from './src/screens/login';
-import Tabs from './src/navigations/Tabs';
+import WelcomePage from '@screens/welcome';
+import LoginPage from '@screens/login';
+import Tabs from '@navigations/Tabs';
 
 const Stack = createNativeStackNavigator();
 
