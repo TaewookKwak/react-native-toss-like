@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     position: 'relative',
-    paddingHorizontal: 20,
+    marginHorizontal: 20,
   },
   alert: {
     position: 'absolute',

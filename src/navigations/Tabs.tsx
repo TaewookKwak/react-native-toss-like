@@ -174,6 +174,7 @@ const Tabs = () => {
 const styles = StyleSheet.create({
   tabBar: {
     backgroundColor: 'white',
+    // position: 'absolute',
   },
   tabBarText: {
     fontSize: 15,

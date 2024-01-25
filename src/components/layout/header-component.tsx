@@ -28,12 +28,14 @@ export default Header;
 
 const styles = StyleSheet.create({
   header: {
+    position: 'relative',
     marginTop: 15,
     marginBottom: 7,
 
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'white',
   },
 
   goBackButton: {

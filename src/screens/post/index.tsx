@@ -10,6 +10,7 @@ const PostScreens = ({}): React.JSX.Element => {
       initialRouteName="PostScreen"
       screenOptions={{
         headerShown: false,
+        contentStyle: {backgroundColor: '#fff'}, // 배경색 안넣어주면 margin 값에 따라서 원래 배경색 들어감
       }}>
       <Stack.Screen name="PostScreen" component={PostScreen} />
       <Stack.Screen name="WriteScreen" component={WriteScreen} />
