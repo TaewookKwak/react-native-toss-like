@@ -3,7 +3,8 @@ import DotButton from '@components/compound-components/button-dot.compound';
 import Header from '@components/layout/header-component';
 import LetterPreview from '@components/letter/letter.component';
 import ThreeHeartSvg from '@components/svgs/svg-three-hearts.component';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {NavigationProp, RouteProp} from '@react-navigation/native';
+import {RootStackParamList} from 'App';
 
 import React from 'react';
 import {
@@ -11,9 +12,18 @@ import {
   FlatList,
   SafeAreaView,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
+
+export type LetterBoxScreenProps = {
+  navigation: NavigationProp<RootStackParamList, 'LetterBoxScreen'>;
+  route: RouteProp<RootStackParamList, 'LetterBoxScreen'>;
+};
+
+// type LetterBoxScreenProps = CompositeScreenProps<
+//   BottomTabScreenProps<BottomTabParamListProps, 'LetterBoxScreen'>,
+//   NativeStackScreenProps<RootStackParamList>
+// >;
 
 export type LetterProp = {
   id: number;
@@ -66,12 +76,9 @@ const data: LetterProp[] = [
   },
 ];
 
-const PostScreen = ({navigation}) => {
-  // console.log('====================================');
-  // console.log(navigation.getState().routes[navigation.getState().index].name);
-  // console.log('====================================');
+const LetterBoxScreen = ({navigation}: LetterBoxScreenProps) => {
   const handlePressWrite = () => {
-    navigation.push('WriteScreen');
+    navigation.navigate('WriteScreen');
   };
   return (
     <SafeAreaView style={[styles.container]}>
@@ -156,4 +163,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PostScreen;
+export default LetterBoxScreen;

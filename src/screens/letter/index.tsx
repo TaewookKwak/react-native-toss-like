@@ -1,10 +1,9 @@
-import {useNavigation, useNavigationState} from '@react-navigation/native';
+import {useNavigationState} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import PostScreen from '@screens/post/post';
+import PostScreen from '@screens/letter/letterbox';
 import {useCurrentScreenStore} from 'src/store/currentScreen';
 import LetterScreen from './letter';
 import WriteScreen from './write';
-import {useState} from 'react';
 
 const Stack = createNativeStackNavigator();
 const PostScreens = ({}): React.JSX.Element => {

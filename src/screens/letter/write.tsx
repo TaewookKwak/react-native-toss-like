@@ -1,6 +1,7 @@
 import DotButton from '@components/compound-components/button-dot.compound';
 import Header from '@components/layout/header-component';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {NavigationProp} from '@react-navigation/native';
+import {RootStackParamList} from 'App';
 import React, {useState} from 'react';
 import {
   Dimensions,
@@ -8,18 +9,15 @@ import {
   Platform,
   Pressable,
   SafeAreaView,
-  ScrollView,
   StyleSheet,
   Text,
   TextInput,
   View,
 } from 'react-native';
 
-type RootStackParamList = {
-  WriteScreen: undefined; // 파라미터가 있는 경우 해당 타입을 지정
+type WriteScreenProps = {
+  navigation: NavigationProp<RootStackParamList>;
 };
-
-type NavigationProps = NativeStackScreenProps<RootStackParamList>;
 
 type LetterColorPalatteProps = {
   color: string;
@@ -28,7 +26,7 @@ type LetterColorPalatteProps = {
 
 const {width: screenWidth} = Dimensions.get('window');
 
-const WriteScreen: React.FC<NavigationProps> = ({navigation}) => {
+const WriteScreen: React.FC<WriteScreenProps> = ({navigation}) => {
   const letterColorPalatte: LetterColorPalatteProps[] = [
     {
       color: '#4b4a47',
@@ -83,9 +81,10 @@ const WriteScreen: React.FC<NavigationProps> = ({navigation}) => {
           setSelectedColor={setSelectedColor}
           selectedColor={selectedColor}
           setComponent={setComponent}
+          navigation={navigation}
         />
       ) : (
-        <LetterWritingComponent />
+        <LetterWritingComponent navigation={navigation} />
       )}
     </SafeAreaView>
   );
@@ -96,6 +95,7 @@ type PalatteComponentProps = {
   selectedColor: number;
   setSelectedColor: (id: number) => void;
   setComponent: (id: number) => void;
+  navigation: NavigationProp<RootStackParamList>;
 };
 
 // wrapper 컴포넌트 분리
@@ -146,7 +146,11 @@ const PalatteComponent = ({
   );
 };
 
-const LetterWritingComponent = () => {
+type LetterWritingComponentProps = {
+  navigation: NavigationProp<RootStackParamList>;
+};
+
+const LetterWritingComponent = ({navigation}: LetterWritingComponentProps) => {
   const [text, setText] = useState('');
   const maxLength = 1000;
 
@@ -171,7 +175,13 @@ const LetterWritingComponent = () => {
           <Text style={styles.counter}>{`${text.length}/${maxLength}`}</Text>
         </View>
 
-        <DotButton style={{width: '100%'}}>
+        <DotButton
+          style={{width: '100%'}}
+          onPress={() => {
+            navigation.navigate('WriteCompleteScreen', {
+              recipient: '안지은',
+            });
+          }}>
           <DotButton.ButtonText>Send</DotButton.ButtonText>
         </DotButton>
       </View>

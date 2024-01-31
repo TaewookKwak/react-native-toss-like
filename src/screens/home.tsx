@@ -3,12 +3,12 @@ import {Pressable, StyleSheet, Text} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import BottomSheet from '../components/ui/bottomsheets/bottomsheet.component';
 
-const HomePage = () => {
+const HomeScreen = () => {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false); // 바텀시트 열림 여부
 
   return (
     <SafeAreaView>
-      <Text>HomePage</Text>
+      <Text>HomeScreen</Text>
       <Pressable
         onPress={() => {
           setIsBottomSheetOpen(true);
@@ -23,6 +23,6 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default HomeScreen;
 
 const styles = StyleSheet.create({});

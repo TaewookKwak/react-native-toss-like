@@ -9,18 +9,36 @@ import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import Tabs from '@navigations/tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import LetterScreen from '@screens/letter/letter';
+import WriteScreen from '@screens/letter/write';
+import WriteCompleteScreen from '@screens/letter/write-complete';
 import LoginPage from '@screens/login';
-import PostScreens from '@screens/post';
-import LetterScreen from '@screens/post/letter';
-import PostScreen from '@screens/post/post';
-import WriteScreen from '@screens/post/write';
 import WelcomePage from '@screens/welcome';
 import React, {useState} from 'react';
-import {useColorScheme} from 'react-native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
+
+export type RootStackParamList = {
+  WriteCompleteScreen: {recipient: string};
+  WriteScreen: undefined;
+  LetterScreen: undefined;
+  LetterBoxScreen: undefined;
+  Login: undefined;
+  Welcome: undefined;
+  DiaryScreen: undefined;
+  StroyScreen: undefined;
+  HomeScreen: undefined;
+  Tabs: undefined;
+  Auth: undefined;
+};
+
+type StackGroupProps = {
+  name: keyof RootStackParamList;
+  component: React.FC<any>;
+  screen?: string;
+};
 
 const Auth = () => {
   return (
@@ -42,9 +60,42 @@ const Auth = () => {
   );
 };
 
-function App(): JSX.Element {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const isDarkMode = useColorScheme() === 'dark';
+// const MainGroup: StackGroupProps[] = [
+//   {
+//     name: 'LetterBoxScreen',
+//     component: LetterBoxScreen,
+//   },
+//   {
+//     name: 'DiaryScreen',
+//     component: DiaryScreen,
+//   },
+//   {
+//     name: 'StroyScreen',
+//     component: StoryScreen,
+//   },
+//   {
+//     name: 'HomeScreen',
+//     component: HomeScreen,
+//   },
+// ];
+
+const PostModalGroup: StackGroupProps[] = [
+  {
+    name: 'WriteScreen',
+    component: WriteScreen,
+  },
+  {
+    name: 'LetterScreen',
+    component: LetterScreen,
+  },
+  {
+    name: 'WriteCompleteScreen',
+    component: WriteCompleteScreen,
+  },
+];
+
+function App() {
+  const [isLoggedIn] = useState(true);
 
   return (
     <GestureHandlerRootView style={{flex: 1}}>
@@ -62,17 +113,19 @@ function App(): JSX.Element {
                       options={{headerShown: false}}
                     />
                   </Stack.Group>
+
                   <Stack.Group
                     screenOptions={{
                       presentation: 'fullScreenModal',
                       headerShown: false,
                     }}>
-                    <Stack.Screen name="PostScreen" component={PostScreen} />
-                    <Stack.Screen name="WriteScreen" component={WriteScreen} />
-                    <Stack.Screen
-                      name="LetterScreen"
-                      component={LetterScreen}
-                    />
+                    {PostModalGroup.map(item => (
+                      <Stack.Screen
+                        key={item.name}
+                        name={item.name}
+                        component={item.component}
+                      />
+                    ))}
                   </Stack.Group>
                 </>
               ) : (
