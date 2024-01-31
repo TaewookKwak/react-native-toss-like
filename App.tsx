@@ -10,9 +10,13 @@ import Tabs from '@navigations/tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LoginPage from '@screens/login';
+import PostScreens from '@screens/post';
+import LetterScreen from '@screens/post/letter';
+import PostScreen from '@screens/post/post';
+import WriteScreen from '@screens/post/write';
 import WelcomePage from '@screens/welcome';
 import React, {useState} from 'react';
-import {KeyboardAvoidingView, Platform, useColorScheme} from 'react-native';
+import {useColorScheme} from 'react-native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 
@@ -50,13 +54,27 @@ function App(): JSX.Element {
             <Stack.Navigator initialRouteName="Auth">
               {isLoggedIn ? (
                 // Screens for logged in users
-                <Stack.Group>
-                  <Stack.Screen
-                    name="Tabs"
-                    component={Tabs}
-                    options={{headerShown: false}}
-                  />
-                </Stack.Group>
+                <>
+                  <Stack.Group>
+                    <Stack.Screen
+                      name="Tabs"
+                      component={Tabs}
+                      options={{headerShown: false}}
+                    />
+                  </Stack.Group>
+                  <Stack.Group
+                    screenOptions={{
+                      presentation: 'fullScreenModal',
+                      headerShown: false,
+                    }}>
+                    <Stack.Screen name="PostScreen" component={PostScreen} />
+                    <Stack.Screen name="WriteScreen" component={WriteScreen} />
+                    <Stack.Screen
+                      name="LetterScreen"
+                      component={LetterScreen}
+                    />
+                  </Stack.Group>
+                </>
               ) : (
                 // Auth screens
                 <Stack.Group>

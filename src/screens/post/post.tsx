@@ -67,6 +67,9 @@ const data: LetterProp[] = [
 ];
 
 const PostScreen = ({navigation}) => {
+  // console.log('====================================');
+  // console.log(navigation.getState().routes[navigation.getState().index].name);
+  // console.log('====================================');
   const handlePressWrite = () => {
     navigation.push('WriteScreen');
   };

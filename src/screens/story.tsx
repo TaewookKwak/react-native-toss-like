@@ -1,12 +1,9 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import Drawer from '@components/drawer/drawer';
 
 const StoryPage = () => {
-  return (
-    <View>
-      <Text>StoryPage</Text>
-    </View>
-  );
+  return <Drawer />;
 };
 
 export default StoryPage;

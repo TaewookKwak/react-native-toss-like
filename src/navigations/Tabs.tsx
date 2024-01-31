@@ -1,4 +1,9 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {
+  getFocusedRouteNameFromRoute,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native';
 import PostScreens from '@screens/post';
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
@@ -7,11 +12,14 @@ import IconFth from 'react-native-vector-icons/Feather';
 import DiaryPage from '../screens/diary';
 import HomePage from '../screens/home';
 import StoryPage from '../screens/story';
+import {useCurrentScreenStore} from 'src/store/currentScreen';
+import PostScreen from '@screens/post/post';
 
 const Tab = createBottomTabNavigator();
 
-const Tabs = () => {
+const Tabs = ({}) => {
   const insets = useSafeAreaInsets(); // safe area insets 값
+  const {currentScreen} = useCurrentScreenStore(); // store에서 현재 스크린 불러오기
 
   return (
     <Tab.Navigator
@@ -23,7 +31,21 @@ const Tabs = () => {
           ...styles.tabBar,
           height: 100 + insets.bottom,
         },
-      }}>
+      }}
+      // screenOptions={({route}) => {
+      //   const isTabBarVisible = currentScreen === 'WriteScreen' ? true : false; // 현재 스크린이 PostScreen이면 탭바 안보이게
+      //   return {
+      //     tabBarShowLabel: false,
+      //     tabBarHideOnKeyboard: true,
+      //     tabBarStyle: {
+      //       display: isTabBarVisible ? 'none' : 'flex',
+
+      //       ...styles.tabBar,
+      //       height: 100 + insets.bottom,
+      //     },
+      //   };
+      // }}
+    >
       <Tab.Screen
         name="Home"
         component={HomePage}
@@ -98,7 +120,7 @@ const Tabs = () => {
       />
       <Tab.Screen
         name="Post"
-        component={PostScreens}
+        component={PostScreen}
         options={{
           headerShown: false,
           title: '우편함',
