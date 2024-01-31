@@ -3,6 +3,7 @@ import DotButton from '@components/compound-components/button-dot.compound';
 import Header from '@components/layout/header-component';
 import LetterPreview from '@components/letter/letter.component';
 import ThreeHeartSvg from '@components/svgs/svg-three-hearts.component';
+import {BottomTabParamListProps} from '@navigations/tabs';
 import {NavigationProp, RouteProp} from '@react-navigation/native';
 import {RootStackParamList} from 'App';
 
@@ -16,14 +17,9 @@ import {
 } from 'react-native';
 
 export type LetterBoxScreenProps = {
-  navigation: NavigationProp<RootStackParamList, 'LetterBoxScreen'>;
-  route: RouteProp<RootStackParamList, 'LetterBoxScreen'>;
+  navigation: NavigationProp<RootStackParamList, 'WriteScreen'>;
+  route: RouteProp<BottomTabParamListProps, 'LetterBoxScreen'>;
 };
-
-// type LetterBoxScreenProps = CompositeScreenProps<
-//   BottomTabScreenProps<BottomTabParamListProps, 'LetterBoxScreen'>,
-//   NativeStackScreenProps<RootStackParamList>
-// >;
 
 export type LetterProp = {
   id: number;

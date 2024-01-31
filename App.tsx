@@ -24,7 +24,6 @@ export type RootStackParamList = {
   WriteCompleteScreen: {recipient: string};
   WriteScreen: undefined;
   LetterScreen: undefined;
-  LetterBoxScreen: undefined;
   Login: undefined;
   Welcome: undefined;
   DiaryScreen: undefined;
@@ -37,7 +36,6 @@ export type RootStackParamList = {
 type StackGroupProps = {
   name: keyof RootStackParamList;
   component: React.FC<any>;
-  screen?: string;
 };
 
 const Auth = () => {
