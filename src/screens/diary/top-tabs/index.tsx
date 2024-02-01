@@ -3,7 +3,7 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 import StoryTab from './tab-story';
 import AlbumTab from './tab-album';
-import DiaryViewHeader from '@components/diary-view-header/diary-view-header';
+import DiaryViewHeader from '@components/diary-top-tabs-header/diary-top-tabs-header';
 
 const Tab = createMaterialTopTabNavigator();
 const TopTabs = () => {

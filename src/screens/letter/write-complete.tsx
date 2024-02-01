@@ -1,5 +1,5 @@
 import DotButton from '@components/compound-components/button-dot.compound';
-import {BottomTabParamListProps} from '@navigations/tabs';
+import {BottomTabParamListProps} from '@navigations/bottom-tabs';
 import {NavigationProp, RouteProp} from '@react-navigation/native';
 import {RootStackParamList} from 'App';
 import React from 'react';

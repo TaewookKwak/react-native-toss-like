@@ -3,7 +3,7 @@ import DotButton from '@components/compound-components/button-dot.compound';
 import Header from '@components/layout/header-component';
 import LetterPreview from '@components/letter/letter.component';
 import ThreeHeartSvg from '@components/svgs/svg-three-hearts.component';
-import {BottomTabParamListProps} from '@navigations/tabs';
+import {BottomTabParamListProps} from '@navigations/bottom-tabs';
 import {NavigationProp, RouteProp} from '@react-navigation/native';
 import {RootStackParamList} from 'App';
 

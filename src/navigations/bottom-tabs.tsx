@@ -30,21 +30,7 @@ const Tabs = ({}) => {
           ...styles.tabBar,
           height: 100 + insets.bottom,
         },
-      }}
-      // screenOptions={({route}) => {
-      //   const isTabBarVisible = currentScreen === 'WriteScreen' ? true : false; // 현재 스크린이 LetterBoxScreen이면 탭바 안보이게
-      //   return {
-      //     tabBarShowLabel: false,
-      //     tabBarHideOnKeyboard: true,
-      //     tabBarStyle: {
-      //       display: isTabBarVisible ? 'none' : 'flex',
-
-      //       ...styles.tabBar,
-      //       height: 100 + insets.bottom,
-      //     },
-      //   };
-      // }}
-    >
+      }}>
       <Tab.Screen
         name="Home"
         component={HomePage}

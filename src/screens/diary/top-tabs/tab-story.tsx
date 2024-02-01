@@ -14,7 +14,7 @@ export default StoryTab;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'red',
+    backgroundColor: 'skyblue',
     position: 'relative',
   },
 });

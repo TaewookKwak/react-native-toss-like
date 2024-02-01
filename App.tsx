@@ -6,7 +6,7 @@
  */
 
 import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
-import Tabs from '@navigations/tabs';
+import Tabs from '@navigations/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import TopTabs from '@screens/diary/top-tabs';
