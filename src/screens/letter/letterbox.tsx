@@ -7,7 +7,7 @@ import {BottomTabParamListProps} from '@navigations/tabs';
 import {NavigationProp, RouteProp} from '@react-navigation/native';
 import {RootStackParamList} from 'App';
 
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Dimensions,
   FlatList,
@@ -15,6 +15,13 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
+import {Gesture, GestureDetector} from 'react-native-gesture-handler';
+import {
+  runOnJS,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated';
 
 export type LetterBoxScreenProps = {
   navigation: NavigationProp<RootStackParamList, 'WriteScreen'>;
@@ -27,7 +34,7 @@ export type LetterProp = {
   content: string;
 };
 
-const {width: screenWidth} = Dimensions.get('window');
+const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
 
 const data: LetterProp[] = [
   {
@@ -73,14 +80,53 @@ const data: LetterProp[] = [
 ];
 
 const LetterBoxScreen = ({navigation}: LetterBoxScreenProps) => {
+  const [isVisible, setIsVisible] = useState(true);
+  const translateY = useSharedValue(0);
+
+  const handleInvisible = () => {
+    setIsVisible(false);
+  };
+
   const handlePressWrite = () => {
     navigation.navigate('WriteScreen');
   };
+
+  const animatedStyles = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          translateY: withTiming(translateY.value, {
+            duration: 500,
+          }),
+        },
+        {
+          translateX: -(screenWidth - 16) / 2,
+        },
+      ],
+    };
+  });
+
+  const tap = React.useMemo(
+    () =>
+      Gesture.Tap().onStart(() => {
+        translateY.value = screenHeight;
+        runOnJS(handleInvisible);
+      }),
+    [translateY],
+  );
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      translateY.value = 0;
+      setIsVisible(true);
+    });
+    return unsubscribe;
+  }, [navigation, translateY]);
+
   return (
     <SafeAreaView style={[styles.container]}>
       {/* 해더 */}
       <Header title="우편함" />
-
       {/* 편지쓰기 */}
       <View style={styles.buttonContainer}>
         <DotButton onPress={handlePressWrite}>
@@ -102,17 +148,25 @@ const LetterBoxScreen = ({navigation}: LetterBoxScreenProps) => {
         }}
       />
 
-      {/* 편지 알림 */}
-      <Alert style={styles.alert}>
-        <Alert.Dot />
-        <Alert.Title>새로운 편지가 도착했어요!</Alert.Title>
-        <Alert.Content>
-          편지를 쓰면 상대방의 편지를 읽을 수 있어요
-        </Alert.Content>
-        <Alert.Footer>
-          <ThreeHeartSvg fill="#FF8FFA" />
-        </Alert.Footer>
-      </Alert>
+      <GestureDetector gesture={tap}>
+        {/* 편지 알림 */}
+        {isVisible ? (
+          <Alert
+            style={[
+              styles.alert, //
+              animatedStyles,
+            ]}>
+            <Alert.Dot />
+            <Alert.Title>새로운 편지가 도착했어요!</Alert.Title>
+            <Alert.Content>
+              편지를 쓰면 상대방의 편지를 읽을 수 있어요
+            </Alert.Content>
+            <Alert.Footer>
+              <ThreeHeartSvg fill="#FF8FFA" />
+            </Alert.Footer>
+          </Alert>
+        ) : null}
+      </GestureDetector>
     </SafeAreaView>
   );
 };

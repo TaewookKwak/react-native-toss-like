@@ -18,6 +18,7 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
+import Animated from 'react-native-reanimated';
 
 type AlertProps = {
   children?: React.ReactNode;
@@ -37,9 +38,9 @@ type TextProps = {
 
 const Alert = ({children, style, ...props}: AlertProps) => {
   return (
-    <View style={[styles.container, style]} {...props}>
+    <Animated.View style={[styles.container, style]} {...props}>
       {children}
-    </View>
+    </Animated.View>
   );
 };
 
