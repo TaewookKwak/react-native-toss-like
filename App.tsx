@@ -9,6 +9,7 @@ import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import Tabs from '@navigations/tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import TopTabs from '@screens/diary/top-tabs';
 import LetterScreen from '@screens/letter/letter';
 import WriteScreen from '@screens/letter/write';
 import WriteCompleteScreen from '@screens/letter/write-complete';

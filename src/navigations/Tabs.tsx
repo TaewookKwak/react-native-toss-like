@@ -4,7 +4,7 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import IconFth from 'react-native-vector-icons/Feather';
-import DiaryPage from '../screens/diary';
+import DiaryPage from '../screens/diary/diary';
 import HomePage from '../screens/home';
 import StoryPage from '../screens/story';
 
