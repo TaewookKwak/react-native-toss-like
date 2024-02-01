@@ -9,6 +9,8 @@ import {
   View,
 } from 'react-native';
 import React, {useRef, useState} from 'react';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {RootStackParamList} from 'App';
 
 // right_arrow.svg 이미지 import
 const RightArrowSvg = require('@assets/right_arrow.png');
@@ -17,6 +19,7 @@ const LetterPreview = ({date, content}: {date: string; content: string}) => {
   const [isTextTruncated, setTextTruncated] = useState(false); // 텍스트가 잘렸는지 여부
   const [contentHeight, setContentHeight] = useState<number>(0); // 텍스트의 높이 (ios 에서 lines 값이 정확히 안나옴)
   const contentRef = useRef<Text>(null);
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const onContentLayout = (e: LayoutChangeEvent) => {
     const {height} = e.nativeEvent.layout; // 텍스트의 높이
@@ -55,7 +58,11 @@ const LetterPreview = ({date, content}: {date: string; content: string}) => {
       {/* 더보기 화살표 */}
 
       {isTextTruncated && (
-        <TouchableOpacity style={styles.arrowContainer}>
+        <TouchableOpacity
+          style={styles.arrowContainer}
+          onPress={() => {
+            navigation.navigate('LetterScreen');
+          }}>
           <Image
             style={styles.arrow}
             source={RightArrowSvg}
