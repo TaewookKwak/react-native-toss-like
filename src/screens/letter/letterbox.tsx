@@ -124,49 +124,51 @@ const LetterBoxScreen = ({navigation}: LetterBoxScreenProps) => {
   }, [navigation, translateY]);
 
   return (
-    <SafeAreaView style={[styles.container]}>
-      {/* 해더 */}
-      <Header title="우편함" />
-      {/* 편지쓰기 */}
-      <View style={styles.buttonContainer}>
-        <DotButton onPress={handlePressWrite}>
-          <DotButton.ButtonText>편지 쓰기</DotButton.ButtonText>
-        </DotButton>
+    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
+      <View style={[styles.container]}>
+        {/* 해더 */}
+        <Header title="우편함" />
+        {/* 편지쓰기 */}
+        <View style={styles.buttonContainer}>
+          <DotButton onPress={handlePressWrite}>
+            <DotButton.ButtonText>편지 쓰기</DotButton.ButtonText>
+          </DotButton>
+        </View>
+
+        {/* 편지 리스트 스크롤 */}
+        <FlatList
+          style={styles.letterList}
+          data={data}
+          keyExtractor={item => item.id.toString()}
+          ItemSeparatorComponent={() => {
+            return <View style={{height: 12}} />;
+          }}
+          showsVerticalScrollIndicator={false}
+          renderItem={({item}) => {
+            return <LetterPreview date={item.date} content={item.content} />;
+          }}
+        />
+
+        <GestureDetector gesture={tap}>
+          {/* 편지 알림 */}
+          {isVisible ? (
+            <Alert
+              style={[
+                styles.alert, //
+                animatedStyles,
+              ]}>
+              <Alert.Dot />
+              <Alert.Title>새로운 편지가 도착했어요!</Alert.Title>
+              <Alert.Content>
+                편지를 쓰면 상대방의 편지를 읽을 수 있어요
+              </Alert.Content>
+              <Alert.Footer>
+                <ThreeHeartSvg fill="#FF8FFA" />
+              </Alert.Footer>
+            </Alert>
+          ) : null}
+        </GestureDetector>
       </View>
-
-      {/* 편지 리스트 스크롤 */}
-      <FlatList
-        style={styles.letterList}
-        data={data}
-        keyExtractor={item => item.id.toString()}
-        ItemSeparatorComponent={() => {
-          return <View style={{height: 12}} />;
-        }}
-        showsVerticalScrollIndicator={false}
-        renderItem={({item}) => {
-          return <LetterPreview date={item.date} content={item.content} />;
-        }}
-      />
-
-      <GestureDetector gesture={tap}>
-        {/* 편지 알림 */}
-        {isVisible ? (
-          <Alert
-            style={[
-              styles.alert, //
-              animatedStyles,
-            ]}>
-            <Alert.Dot />
-            <Alert.Title>새로운 편지가 도착했어요!</Alert.Title>
-            <Alert.Content>
-              편지를 쓰면 상대방의 편지를 읽을 수 있어요
-            </Alert.Content>
-            <Alert.Footer>
-              <ThreeHeartSvg fill="#FF8FFA" />
-            </Alert.Footer>
-          </Alert>
-        ) : null}
-      </GestureDetector>
     </SafeAreaView>
   );
 };
