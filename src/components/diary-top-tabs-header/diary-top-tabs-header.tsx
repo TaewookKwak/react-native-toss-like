@@ -30,7 +30,7 @@ const DiaryViewHeader = ({
         <Image source={ArrowLeftImage} width={19} height={22} />
       </TouchableOpacity>
 
-      <Txt.Common style={styles.header}>
+      <Txt.Common style={styles.header} numberOfLines={3}>
         {routeName === 'Story' ? '우리의 이야기' : '앨범별 보기'}
       </Txt.Common>
 

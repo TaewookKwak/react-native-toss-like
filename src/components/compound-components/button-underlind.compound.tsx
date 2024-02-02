@@ -24,9 +24,12 @@ type ButtonTextProps = {
   style?: StyleProp<TextStyle>;
 };
 
-const UnderlineButton = ({children, style, ...props}: ButtonProps) => {
+const UnderlineButton = ({children, style, onPress, ...props}: ButtonProps) => {
   return (
-    <TouchableOpacity style={[styles.button, style]} {...props}>
+    <TouchableOpacity
+      style={[styles.button, style]}
+      {...props}
+      onPress={onPress}>
       {children}
     </TouchableOpacity>
   );
@@ -45,7 +48,7 @@ UnderlineButton.ButtonText = ButtonText;
 const styles = StyleSheet.create({
   button: {
     alignSelf: 'flex-start',
-    backgroundColor: '#fff',
+    backgroundColor: 'transparent',
     borderBottomWidth: 1,
   },
 

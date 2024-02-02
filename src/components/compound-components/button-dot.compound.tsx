@@ -18,6 +18,7 @@ import {
 type DotButtonProps = {
   children?: React.ReactNode;
   style?: StyleProp<ViewStyle>;
+  wrapStyle?: StyleProp<ViewStyle>;
   onPress?: () => void;
 };
 
@@ -26,13 +27,19 @@ type ButtonTextProps = {
   style?: StyleProp<TextStyle>;
 };
 
-const DotButton = ({children, style, onPress, ...props}: DotButtonProps) => {
+const DotButton = ({
+  children,
+  style,
+  wrapStyle,
+  onPress,
+  ...props
+}: DotButtonProps) => {
   return (
     <TouchableOpacity
       style={[styles.button, style]}
       onPress={onPress}
       {...props}>
-      <View style={styles.dashWrap}>{children}</View>
+      <View style={[styles.dashWrap, wrapStyle]}>{children}</View>
     </TouchableOpacity>
   );
 };
