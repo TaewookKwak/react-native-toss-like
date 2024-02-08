@@ -1,7 +1,7 @@
 import React from 'react';
-import {StyleProp, StyleSheet, Text, TextStyle} from 'react-native';
+import {StyleProp, StyleSheet, Text as RnText, TextStyle} from 'react-native';
 
-type TxtProps = {
+type TextProps = {
   children: React.ReactNode;
   style?: StyleProp<TextStyle>;
   numberOfLines?: number;
@@ -9,7 +9,7 @@ type TxtProps = {
   [key: string]: any;
 };
 
-const Txt = () => {};
+const Text = () => {};
 
 /**
  * @param {React.ReactNode} children
@@ -22,18 +22,21 @@ const Txt = () => {};
 const Common = ({
   children,
   style,
+  fontFamily,
+  fontSize,
+  fontWeight,
   numberOfLines,
   ellipsizeMode,
   ...props
-}: TxtProps) => {
+}: TextProps) => {
   return (
-    <Text
-      style={[styles.text, style]}
+    <RnText
+      style={[styles.text, {fontFamily, fontSize, fontWeight}, style]}
       numberOfLines={numberOfLines}
       ellipsizeMode={ellipsizeMode}
       {...props}>
       {children}
-    </Text>
+    </RnText>
   );
 };
 
@@ -49,6 +52,16 @@ const styles = StyleSheet.create({
   },
 });
 
-Txt.Common = Common;
+Text.Common = Common;
 
-export default Txt;
+Text.defaultProps = {
+  children: null,
+  fontFamily: 'Galmuri11-Regular',
+  fontSize: 13,
+  fontWeight: '400',
+  numberOfLines: 1,
+  ellipsizeMode: 'tail',
+  style: {},
+};
+
+export default Text;

@@ -1,7 +1,7 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {Image} from 'react-native';
-import Txt from '@components/ui/text/text';
+import Text from '@components/ui/text/text';
 
 // right_arrow.svg 이미지 import
 const ArrowRightImage = require('@assets/arrow_right.png');
@@ -30,9 +30,9 @@ const DiaryViewHeader = ({
         <Image source={ArrowLeftImage} width={19} height={22} />
       </TouchableOpacity>
 
-      <Txt.Common style={styles.header} numberOfLines={3}>
+      <Text.Common style={styles.header} numberOfLines={3}>
         {routeName === 'Story' ? '우리의 이야기' : '앨범별 보기'}
-      </Txt.Common>
+      </Text.Common>
 
       <TouchableOpacity
         style={styles.arrowContainer}
