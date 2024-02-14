@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Pressable, StyleSheet, Switch, Text} from 'react-native';
+import {FlatList, Pressable, StyleSheet, Switch, Text} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {assetLists} from 'src_toss/utils/constants';
 import useThemeStore from 'src_toss/utils/zustand/themeStore';
@@ -36,9 +36,14 @@ const HomePage = () => {
           }}>
           자산 추가
         </Text>
-        {assetLists.map(asset => {
+        {/* {assetLists.map(asset => {
           return <IconTextList data={asset} key={asset.id} />;
-        })}
+        })} */}
+        <FlatList
+          data={assetLists}
+          renderItem={({item}) => <IconTextList data={item} />}
+          keyExtractor={item => item.id.toString()}
+        />
       </BottomSheet>
       {/* 다크모드 토글 버튼 */}
       <Switch

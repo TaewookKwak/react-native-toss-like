@@ -4,7 +4,7 @@ import {
   useBottomSheetSpringConfigs,
 } from '@gorhom/bottom-sheet';
 import React, {useCallback, useEffect, useMemo, useRef} from 'react';
-import {ScrollView, StyleSheet} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import {colors} from 'src_toss/styles/color';
 import {StyleProps} from 'src_toss/types/types';
 import useThemeStore from 'src_toss/utils/zustand/themeStore';
@@ -82,7 +82,12 @@ const BottomSheet = ({
       onChange={handleSheetChanges} // 바텀시트 상태 변화 시
       onDismiss={handlePressCloseModal} // 모달 닫힐 때
     >
-      <ScrollView style={stylesT.scrollView}>{children}</ScrollView>
+      {children}
+      <View
+        style={{
+          marginBottom: 30,
+        }}
+      />
       <GrandientWhite />
     </BottomSheetModal>
   );
@@ -105,9 +110,6 @@ const styles = (theme: StyleProps) =>
     },
     containerStyle: {
       // outside of the bottom sheet background
-    },
-    scrollView: {
-      marginBottom: 20,
     },
     handleStyle: {
       // handle style
