@@ -7,36 +7,40 @@ import AllPage from '../screens/all';
 import BenefitsPage from '../screens/benefits';
 import HomePage from '../screens/home';
 import PayPage from '../screens/pay';
-import TabBarIcon from './TabBarIcon';
+import TabBarIcon from './bottom-tab-icon';
+import useThemeStore from 'src_toss/utils/zustand/themeStore';
+import {colors} from 'src_toss/styles/color';
 
 const Tab = createBottomTabNavigator();
 
 const Tabs = () => {
+  const {theme} = useThemeStore();
   const insets = useSafeAreaInsets(); // safe area insets 값
 
+  //house, piggy-bank,medal,credit-card,bars
   const tabs = [
     {
       name: 'Home',
       component: HomePage,
-      icon: 'home',
+      icon: 'house',
       label: '홈',
     },
     {
       name: 'Benefits',
       component: BenefitsPage,
-      icon: 'award',
+      icon: 'piggy-bank',
       label: '혜택',
     },
     {
       name: 'Pay',
       component: PayPage,
-      icon: 'briefcase',
+      icon: 'credit-card',
       label: '페이',
     },
     {
       name: 'All',
       component: AllPage,
-      icon: 'menu',
+      icon: 'bars',
       label: '전체',
     },
   ];
@@ -47,8 +51,14 @@ const Tabs = () => {
       screenOptions={{
         tabBarShowLabel: false,
         tabBarStyle: {
-          ...styles.tabBar,
+          position: 'absolute',
+          elevation: 1,
+          borderTopLeftRadius: 20,
+          borderTopRightRadius: 20,
           height: insets.bottom + 60,
+          backgroundColor: colors[theme].bg_bottom_tab,
+          borderColor: colors[theme].bg_bottom_tab,
+          borderTopColor: colors[theme].bg_bottom_tab,
         },
       }}>
       {tabs.map((tab, index) => {
@@ -75,13 +85,4 @@ const Tabs = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  tabBar: {
-    position: 'absolute',
-    elevation: 1,
-    backgroundColor: '#FFF',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-  },
-});
 export default Tabs;

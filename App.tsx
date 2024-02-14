@@ -6,18 +6,20 @@
  */
 
 import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
-import Tabs from '@navigations/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import TopTabs from '@screens/diary/top-tabs';
+import TossTabs from '~navigations/bottom-tab';
+
 import LetterScreen from '@screens/letter/letter';
 import WriteScreen from '@screens/letter/write';
 import WriteCompleteScreen from '@screens/letter/write-complete';
 import LoginPage from '@screens/login';
 import WelcomePage from '@screens/welcome';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {storage} from 'src_toss/utils/mmkv';
+import useThemeStore from 'src_toss/utils/zustand/themeStore';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -95,6 +97,12 @@ const PostModalGroup: StackGroupProps[] = [
 
 function App() {
   const [isLoggedIn] = useState(true);
+  const {setTheme} = useThemeStore();
+
+  useEffect(() => {
+    const _theme = storage.getString('theme');
+    setTheme(_theme as 'light' | 'dark');
+  }, [setTheme]);
 
   return (
     <GestureHandlerRootView style={{flex: 1}}>
@@ -108,7 +116,7 @@ function App() {
                   <Stack.Group>
                     <Stack.Screen
                       name="Tabs"
-                      component={Tabs}
+                      component={TossTabs}
                       options={{
                         headerShown: false,
                       }}

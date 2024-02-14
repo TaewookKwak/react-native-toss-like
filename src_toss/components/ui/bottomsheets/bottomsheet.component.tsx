@@ -1,19 +1,29 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React, {useCallback, useEffect, useMemo, useRef} from 'react';
 import {
   BottomSheetBackdrop,
   BottomSheetModal,
   useBottomSheetSpringConfigs,
-  BottomSheetHandleProps,
-  BottomSheetHandle,
 } from '@gorhom/bottom-sheet';
+import React, {useCallback, useEffect, useMemo, useRef} from 'react';
+import {ScrollView, StyleSheet} from 'react-native';
+import {colors} from 'src_toss/styles/color';
+import {StyleProps} from 'src_toss/types/types';
+import useThemeStore from 'src_toss/utils/zustand/themeStore';
+import GrandientWhite from '../gradients/gradient-white';
 
 type BottomSheetProps = {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
+  children: React.ReactNode;
+  snapPoint?: string[];
 };
 
-const BottomSheet = ({isOpen, setIsOpen}: BottomSheetProps) => {
+const BottomSheet = ({
+  isOpen,
+  setIsOpen,
+  children,
+  snapPoint = ['35%'],
+}: BottomSheetProps) => {
+  const {theme} = useThemeStore();
   const animationConfigs = useBottomSheetSpringConfigs({
     damping: 100,
     overshootClamping: true,
@@ -22,16 +32,9 @@ const BottomSheet = ({isOpen, setIsOpen}: BottomSheetProps) => {
     stiffness: 800,
   });
 
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const stylesT = React.useMemo(() => styles(colors[theme]), [theme]);
 
-  const snapPoints = useMemo(
-    () => [
-      '35%',
-      //    '70%',
-      // '100%'
-    ],
-    [],
-  );
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
 
   const renderBackdrop = useCallback(
     (props: any) => (
@@ -44,16 +47,6 @@ const BottomSheet = ({isOpen, setIsOpen}: BottomSheetProps) => {
     ),
     [],
   );
-
-  const renderHandle = useCallback((props: BottomSheetHandleProps) => {
-    return (
-      <BottomSheetHandle {...props}>
-        <View>
-          <Text>dqwd</Text>
-        </View>
-      </BottomSheetHandle>
-    );
-  }, []);
 
   const handlePressOpenModal = useCallback(() => {
     bottomSheetModalRef.current?.present();
@@ -76,52 +69,54 @@ const BottomSheet = ({isOpen, setIsOpen}: BottomSheetProps) => {
     <BottomSheetModal
       ref={bottomSheetModalRef}
       index={0}
-      snapPoints={snapPoints} // 스냅 포인트 : 바텀시트가 열릴 때 높이
+      snapPoints={snapPoint} // 스냅 포인트 : 바텀시트가 열릴 때 높이
       animationConfigs={animationConfigs} // 애니메이션 설정
-      style={styles.bottomSheet}
-      backgroundStyle={styles.backgroundStyle}
-      handleStyle={styles.handleStyle}
-      handleIndicatorStyle={styles.handleIndicatorStyle}
-      containerStyle={styles.containerStyle}
-      handleComponent={renderHandle} // 핸들 컴포넌트
+      enableContentPanningGesture={false} // 스크롤 다운 가능하게 할 수 있음
+      style={stylesT.bottomSheet}
+      backgroundStyle={stylesT.backgroundStyle}
+      handleStyle={stylesT.handleStyle}
+      handleIndicatorStyle={stylesT.handleIndicatorStyle}
+      containerStyle={stylesT.containerStyle}
+      // handleComponent={renderHandle} // 핸들 컴포넌트
       backdropComponent={renderBackdrop} // 뒷 배경 컴포넌트
       onChange={handleSheetChanges} // 바텀시트 상태 변화 시
       onDismiss={handlePressCloseModal} // 모달 닫힐 때
     >
-      <View style={styles.contentContainer}>
-        <Text>Awesome 🎉</Text>
-      </View>
+      <ScrollView style={stylesT.scrollView}>{children}</ScrollView>
+      <GrandientWhite />
     </BottomSheetModal>
   );
 };
 
 export default BottomSheet;
 
-const styles = StyleSheet.create({
-  bottomSheet: {
-    // backgroundColor: 'black',
-
-    margin: 12,
-  },
-  backgroundStyle: {
-    backgroundColor: 'transparent',
-  },
-  containerStyle: {
-    // backgroundColor: 'pink',
-  },
-  handleStyle: {
-    backgroundColor: 'white',
-    borderTopEndRadius: 20,
-    borderTopStartRadius: 20,
-  },
-  handleIndicatorStyle: {
-    backgroundColor: 'grey',
-    width: 40,
-  },
-  contentContainer: {
-    backgroundColor: 'blue',
-    height: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const styles = (theme: StyleProps) =>
+  StyleSheet.create({
+    bottomSheet: {
+      position: 'relative',
+      margin: 10,
+      borderTopRightRadius: 20,
+      borderTopLeftRadius: 20,
+      backgroundColor: theme.bg_bottom_sheet,
+    },
+    backgroundStyle: {
+      // bottom sheet background
+      backgroundColor: 'transparent',
+    },
+    containerStyle: {
+      // outside of the bottom sheet background
+    },
+    scrollView: {
+      marginBottom: 20,
+    },
+    handleStyle: {
+      // handle style
+      backgroundColor: 'transparent',
+      height: 40,
+    },
+    handleIndicatorStyle: {
+      // handle indicator style
+      backgroundColor: theme.indicator_bottom_sheet,
+      width: 50,
+    },
+  });
