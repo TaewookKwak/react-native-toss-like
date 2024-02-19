@@ -36,6 +36,50 @@
 			</dict>
 		</dict>
 	</dict>
+	
+	<!-- 🚨 Keep only the permissions used in your app 🚨 -->
+  <!-- <key>NSAppleMusicUsageDescription</key>
+  <string>YOUR TEXT</string>
+  <key>NSBluetoothAlwaysUsageDescription</key>
+  <string>YOUR TEXT</string>
+  <key>NSBluetoothPeripheralUsageDescription</key>
+  <string>YOUR TEXT</string>
+  <key>NSCalendarsFullAccessUsageDescription</key>
+  <string>YOUR TEXT</string>
+  <key>NSCalendarsWriteOnlyAccessUsageDescription</key>
+  <string>YOUR TEXT</string>
+  <key>NSCameraUsageDescription</key>
+  <string>YOUR TEXT</string>
+  <key>NSContactsUsageDescription</key>
+  <string>YOUR TEXT</string>
+  <key>NSFaceIDUsageDescription</key>
+  <string>YOUR TEXT</string>
+  <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+  <string>YOUR TEXT</string>
+  <key>NSLocationTemporaryUsageDescriptionDictionary</key>
+  <dict>
+    <key>YOUR-PURPOSE-KEY</key>
+    <string>YOUR TEXT</string>
+  </dict>
+  <key>NSMicrophoneUsageDescription</key>
+  <string>YOUR TEXT</string>
+  <key>NSMotionUsageDescription</key>
+  <string>YOUR TEXT</string>
+  <key>NSRemindersFullAccessUsageDescription</key>
+  <string>YOUR TEXT</string>
+  <key>NSSpeechRecognitionUsageDescription</key>
+  <string>YOUR TEXT</string>
+  <key>NSSiriUsageDescription</key>
+  <string>YOUR TEXT</string>
+  <key>NSUserTrackingUsageDescription</key>
+  <string>YOUR TEXT</string> -->
+
+<!-- 🚨 이미지 권한🚨 -->
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Allow app to access device photo library</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Allow app to add photos to device photo library</string>
+
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
 	<key>UILaunchStoryboardName</key>

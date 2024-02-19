@@ -46,6 +46,7 @@ export const light: ColorProps = {
   icon: '#B0B8C1',
   divider: '#E5E8EB',
   red: '#F04452',
+  logo: '#1B64DA',
 };
 
 export const dark: ColorProps = {
@@ -68,6 +69,7 @@ export const dark: ColorProps = {
   icon: '#62626D',
   divider: '#2C2C35',
   red: '#F04452',
+  logo: '#4593FC',
 };
 
 export const colors = {dark, light};
