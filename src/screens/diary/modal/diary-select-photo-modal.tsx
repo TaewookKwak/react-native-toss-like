@@ -1,7 +1,6 @@
-import {
-  CameraRoll,
-  PhotoIdentifier,
-} from '@react-native-camera-roll/camera-roll';
+import {useNavigation} from '@react-navigation/native';
+
+import {CameraRoll} from '@react-native-camera-roll/camera-roll';
 import React, {useCallback, useEffect, useState} from 'react';
 import {
   Alert,
@@ -15,18 +14,21 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import Text from '~components/ui/text/text';
-import {usePermissionCamera} from '~hooks/usePermission';
+import Text from '@components/ui/text/text';
+import {usePermissionCamera} from '@hooks/usePermission';
+import UnderlineButton from '@components/compound-components/button-underlind.compound';
+import DotButton from '@components/compound-components/button-dot.compound';
 
 const {width: screenWidth} = Dimensions.get('window');
 
-const BenefitsPage = () => {
+const DiarySelectPhotoScreen = () => {
+  const navigation = useNavigation();
   const {hasPermission} = usePermissionCamera(); // 카메라 권한 확인하기
-  const [photos, setPhotos] = useState<PhotoIdentifier[]>([]); // 기기 내 사진 데이터
-  const [selectedPhotos, setSelectedPhotos] = useState<string[]>([]); // 선택한 사진 데이터
+  const [photos, setPhotos] = useState([]); // 기기 내 사진 데이터
+  const [selectedPhotos, setSelectedPhotos] = useState([]); // 선택한 사진 데이터
 
   //  선택한 사진 데이터 추가/제거하기
-  const handleSelectPhoto = (uri: string) => {
+  const handleSelectPhoto = uri => {
     if (selectedPhotos.includes(uri)) {
       setSelectedPhotos(selectedPhotos.filter(photoUri => photoUri !== uri)); // 선택한 사진 데이터에서 uri 를 제외한 나머지 데이터만 남기기
     } else {
@@ -39,7 +41,7 @@ const BenefitsPage = () => {
     const res = await CameraRoll.getPhotos({
       first: 10,
       assetType: 'Photos',
-      groupTypes: 'Album',
+      // groupTypes: 'Album',
       // groupName: '가족사진',
       // Include fileSize only for android since it's causing performance issues on IOS.
       ...(Platform.OS === 'android' && {include: ['fileSize', 'filename']}),
@@ -63,9 +65,19 @@ const BenefitsPage = () => {
       fetchAlbums();
     }
   }, [hasPermission, fetchPhotos, fetchAlbums]);
+
   return (
     <SafeAreaView style={{flex: 1}}>
-      <Text.Common
+      <TouchableOpacity>
+        <DotButton
+          style={{alignSelf: 'stretch'}}
+          onPress={() => {
+            navigation.navigate('ModalWriteFeed');
+          }}>
+          <DotButton.ButtonText>피드 작성</DotButton.ButtonText>
+        </DotButton>
+      </TouchableOpacity>
+      {/* <Text.Common
         style={{
           fontSize: 22,
           textAlign: 'center',
@@ -73,9 +85,9 @@ const BenefitsPage = () => {
           padding: 24,
         }}>
         {`Permission: ${hasPermission ? 'Granted ✅' : 'Denied ❌'}`}
-      </Text.Common>
+      </Text.Common> */}
 
-      <TouchableOpacity
+      {/* <TouchableOpacity
         onPress={() => {
           // alert 로 선택된 사진 데이터 보여주기
           Alert.alert('선택한 사진들', selectedPhotos.join('\n'));
@@ -90,7 +102,7 @@ const BenefitsPage = () => {
             ? `선택한 사진들 (${selectedPhotos.length})`
             : '사진 선택하기'}
         </Text.Common>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
       <View style={{width: screenWidth, height: screenWidth}}>
         <PhotoSlider
@@ -111,9 +123,9 @@ const BenefitsPage = () => {
             기기 내 앨범명 ⌵
           </Text.Common>
         </TouchableOpacity>
-        <ScrollView>
+        <ScrollView style={{flex: 1}}>
           <View style={styles.photos}>
-            {photos?.map(item => {
+            {photos?.map((item, index) => {
               const isSelected = selectedPhotos.includes(
                 item?.node?.image?.uri,
               );
@@ -121,7 +133,7 @@ const BenefitsPage = () => {
                 selectedPhotos.indexOf(item?.node?.image?.uri) + 1;
               return (
                 <TouchableOpacity
-                  key={item?.node?.image?.uri}
+                  key={`${index}-${item?.node?.image?.uri}`}
                   onPress={() => {
                     handleSelectPhoto(item?.node?.image?.uri);
                   }}
@@ -150,20 +162,14 @@ const BenefitsPage = () => {
           </View>
         </ScrollView>
       </View>
+
+      {/*  */}
     </SafeAreaView>
   );
 };
 
-const PhotoSlider = ({
-  photos,
-  selectedPhotos,
-  screenWidth,
-}: {
-  photos: PhotoIdentifier[];
-  selectedPhotos: string[];
-  screenWidth: number;
-}) => {
-  const renderItem = ({item}: {item: string}) => {
+const PhotoSlider = ({photos, selectedPhotos, screenWidth}) => {
+  const renderItem = ({item}) => {
     return (
       <View style={{width: screenWidth, height: screenWidth}}>
         <Image
@@ -207,7 +213,7 @@ const PhotoSlider = ({
   }
 };
 
-export default BenefitsPage;
+export default DiarySelectPhotoScreen;
 
 const styles = StyleSheet.create({
   album: {

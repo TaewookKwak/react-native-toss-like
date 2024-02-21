@@ -7,13 +7,16 @@
     android:maxSdkVersion="32" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
   
+  <!-- 위치 정보 권한 -->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
+
   <!-- 🚨 Keep only the permissions used in your app 🚨 -->
 
   <!-- <uses-permission android:name="android.permission.ACCEPT_HANDOVER" />
-  <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
-  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-  <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
+
   <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
   <uses-permission android:name="com.android.voicemail.permission.ADD_VOICEMAIL" />
   <uses-permission android:name="android.permission.ANSWER_PHONE_CALLS" />
@@ -47,6 +50,11 @@
   <uses-permission android:name="android.permission.WRITE_CALL_LOG" />
   <uses-permission android:name="android.permission.WRITE_CONTACTS" /> -->
 
+    <application>
+      <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyAXkty35QHx5mnl4YktmaKXmuZ44XjkH7g"/>
+    </application>
 
     <application
       android:name=".MainApplication"

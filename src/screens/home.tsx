@@ -9,19 +9,22 @@ import {
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import BottomSheet from '../components/ui/bottomsheets/bottomsheet.component';
+import DiarySelectLocationScreen from './diary/modal/diary-select-location-modal';
 
 const HomeScreen = () => {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false); // 바텀시트 열림 여부
 
   return (
-    <SafeAreaView>
-      <Text>HomeScreen</Text>
+    <SafeAreaView style={{flex: 1}}>
+      {/* <Text>HomeScreen</Text>
       <Pressable
         onPress={() => {
           setIsBottomSheetOpen(true);
         }}>
         <Text>바텀 시트 열기</Text>
-      </Pressable>
+      </Pressable> */}
+
+      <DiarySelectLocationScreen />
 
       {/*  바텀 시트 */}
       <BottomSheet isOpen={isBottomSheetOpen} setIsOpen={setIsBottomSheetOpen}>

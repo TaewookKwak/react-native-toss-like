@@ -231,14 +231,14 @@ const styles = StyleSheet.create({
 
   // 편지 쓰기 컴포넌트
   inputContainer: {
-    maxHeight: 500,
+    // maxHeight: 500,
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
     marginHorizontal: 20,
   },
   input: {
     flex: 1,
+    maxHeight: 0,
     borderWidth: 1,
     borderColor: '#000',
     borderRadius: 10,

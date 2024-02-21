@@ -16,7 +16,9 @@
  node_require('react-native/scripts/react_native_pods.rb')
  node_require('react-native-permissions/scripts/setup.rb')
 
-platform :ios, min_ios_version_supported
+# 구글맵은 platform :ios, '13.4' 이상에서만 사용가능
+# platform :ios, min_ios_version_supported
+platform :ios, '13.4'
 prepare_react_native_project!
 
 # ⬇️ uncomment wanted permissions
@@ -28,9 +30,9 @@ setup_permissions([
   'Camera',
   # 'Contacts',
   # 'FaceID',
-  # 'LocationAccuracy',
-  # 'LocationAlways',
-  # 'LocationWhenInUse',
+  'LocationAccuracy',
+  'LocationAlways',
+  'LocationWhenInUse',
   # 'MediaLibrary',
   # 'Microphone',
   # 'Motion',
@@ -63,6 +65,10 @@ if linkage != nil
 end
 
 target 'V72' do
+
+  # React Native Maps dependencies
+  rn_maps_path = '../node_modules/react-native-maps'
+  pod 'react-native-google-maps', :path => rn_maps_path
   config = use_native_modules!
 
   # Flags change depending on the env values.

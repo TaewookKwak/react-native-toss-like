@@ -70,6 +70,30 @@ PODS:
     - FlipperKit/FlipperKitNetworkPlugin
   - fmt (6.2.1)
   - glog (0.3.5)
+  - Google-Maps-iOS-Utils (4.2.2):
+    - Google-Maps-iOS-Utils/Clustering (= 4.2.2)
+    - Google-Maps-iOS-Utils/Geometry (= 4.2.2)
+    - Google-Maps-iOS-Utils/GeometryUtils (= 4.2.2)
+    - Google-Maps-iOS-Utils/Heatmap (= 4.2.2)
+    - Google-Maps-iOS-Utils/QuadTree (= 4.2.2)
+    - GoogleMaps (~> 7.3)
+  - Google-Maps-iOS-Utils/Clustering (4.2.2):
+    - Google-Maps-iOS-Utils/QuadTree
+    - GoogleMaps (~> 7.3)
+  - Google-Maps-iOS-Utils/Geometry (4.2.2):
+    - GoogleMaps (~> 7.3)
+  - Google-Maps-iOS-Utils/GeometryUtils (4.2.2):
+    - GoogleMaps (~> 7.3)
+  - Google-Maps-iOS-Utils/Heatmap (4.2.2):
+    - Google-Maps-iOS-Utils/QuadTree
+    - GoogleMaps (~> 7.3)
+  - Google-Maps-iOS-Utils/QuadTree (4.2.2):
+    - GoogleMaps (~> 7.3)
+  - GoogleMaps (7.4.0):
+    - GoogleMaps/Maps (= 7.4.0)
+  - GoogleMaps/Base (7.4.0)
+  - GoogleMaps/Maps (7.4.0):
+    - GoogleMaps/Base
   - hermes-engine (0.72.10):
     - hermes-engine/Pre-built (= 0.72.10)
   - hermes-engine/Pre-built (0.72.10)
@@ -384,6 +408,14 @@ PODS:
   - react-native-cameraroll (7.4.1):
     - RCT-Folly (= 2021.07.22.00)
     - React-Core
+  - react-native-geolocation (3.1.0):
+    - React-Core
+  - react-native-google-maps (1.10.3):
+    - Google-Maps-iOS-Utils (= 4.2.2)
+    - GoogleMaps (= 7.4.0)
+    - React-Core
+  - react-native-maps (1.10.3):
+    - React-Core
   - react-native-mmkv (2.11.0):
     - MMKV (>= 1.2.13)
     - React-Core
@@ -571,6 +603,9 @@ DEPENDENCIES:
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - "react-native-blur (from `../node_modules/@react-native-community/blur`)"
   - "react-native-cameraroll (from `../node_modules/@react-native-camera-roll/camera-roll`)"
+  - "react-native-geolocation (from `../node_modules/@react-native-community/geolocation`)"
+  - react-native-google-maps (from `../node_modules/react-native-maps`)
+  - react-native-maps (from `../node_modules/react-native-maps`)
   - react-native-mmkv (from `../node_modules/react-native-mmkv`)
   - react-native-pager-view (from `../node_modules/react-native-pager-view`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
@@ -611,6 +646,8 @@ SPEC REPOS:
     - Flipper-PeerTalk
     - FlipperKit
     - fmt
+    - Google-Maps-iOS-Utils
+    - GoogleMaps
     - libevent
     - MMKV
     - MMKVCore
@@ -665,6 +702,12 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/blur"
   react-native-cameraroll:
     :path: "../node_modules/@react-native-camera-roll/camera-roll"
+  react-native-geolocation:
+    :path: "../node_modules/@react-native-community/geolocation"
+  react-native-google-maps:
+    :path: "../node_modules/react-native-maps"
+  react-native-maps:
+    :path: "../node_modules/react-native-maps"
   react-native-mmkv:
     :path: "../node_modules/react-native-mmkv"
   react-native-pager-view:
@@ -736,6 +779,8 @@ SPEC CHECKSUMS:
   FlipperKit: 2efad7007d6745a3f95e4034d547be637f89d3f6
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
+  Google-Maps-iOS-Utils: f77eab4c4326d7e6a277f8e23a0232402731913a
+  GoogleMaps: 032f676450ba0779bd8ce16840690915f84e57ac
   hermes-engine: 90e4033deb00bee33330a9f15eff0f874bd82f6d
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   MMKV: f902fb6719da13c2ab0965233d8963a59416f911
@@ -758,6 +803,9 @@ SPEC CHECKSUMS:
   React-logger: dc3a2b174d79c2da635059212747d8d929b54e06
   react-native-blur: 69ecfe61d81b32ee7baae10f5d17aeb4e2594b10
   react-native-cameraroll: 7ae02c5d25f61ff3035c894325dfc4baa92f5d7a
+  react-native-geolocation: ef66fb798d96284c6043f0b16c15d9d1d4955db4
+  react-native-google-maps: 1bcc1f9f13f798fcf230db7fe476f3566d0bc0a3
+  react-native-maps: 72a8a903f8a1b53e2c777ba79102078ab502e0bf
   react-native-mmkv: e97c0c79403fb94577e5d902ab1ebd42b0715b43
   react-native-pager-view: e26d35e382d86950c936f8917e3beb9188115ccc
   react-native-safe-area-context: 0ee144a6170530ccc37a0fd9388e28d06f516a89
@@ -780,7 +828,7 @@ SPEC CHECKSUMS:
   ReactCommon: 38824bfffaf4c51fbe03a2730b4fd874ef34d67b
   RNCAsyncStorage: 618d03a5f52fbccb3d7010076bc54712844c18ef
   RNGestureHandler: fe2be3be5598dc74329b211c58c9f2d231461769
-  RNPermissions: c16a309eb67b1b3508a9178d6f2b5d6af6705841
+  RNPermissions: d8744aea4375067d9ddb3d1c96fb815f32271c0d
   RNReanimated: fdbaa9c964bbab7fac50c90862b6cc5f041679b9
   RNScreens: 3c5b9f4a9dcde752466854b6109b79c0e205dad3
   RNSVG: ba3e7232f45e34b7b47e74472386cf4e1a676d0a
@@ -788,6 +836,6 @@ SPEC CHECKSUMS:
   Yoga: d0003f849d2b5224c072cef6568b540d8bb15cd3
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: b5f570a68afd224601cea45051cb64aa3bd9b334
+PODFILE CHECKSUM: 05cc2e0907156be9e155e091fa47cf862adfe566
 
 COCOAPODS: 1.14.3

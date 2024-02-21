@@ -64,3 +64,11 @@ yarn-error.log
 
 # testing
 /coverage
+
+# env 모든 파일
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
