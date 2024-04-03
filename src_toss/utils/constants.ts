@@ -1,7 +1,9 @@
 // 은행/카드/증권/포인트-페이머니/보험/할부금융(캐피탈)/부동산/자동차/통신사/현금(직접입력)
 
+import {ibk_icon, kb_icon, toss_icon, woori_icon} from './icons';
+
 export type AssetListParams = {
-  id: number;
+  id?: number;
   name: string;
   iconName: string;
 };
@@ -56,5 +58,39 @@ export const assetLists: AssetListParams[] = [
     id: 11,
     name: '현금',
     iconName: 'pencil',
+  },
+];
+
+export type BankInfoProps = {
+  id: string;
+  name: string;
+  iconName: string;
+  amount?: number;
+};
+
+export const bankInfoList: BankInfoProps[] = [
+  {
+    id: 'kb',
+    name: 'KB국민ONE통장-보통예금',
+    iconName: kb_icon,
+    amount: 18320000,
+  },
+  {
+    id: 'woori',
+    name: '우리은행-보통예금',
+    iconName: woori_icon,
+    amount: 2400000,
+  },
+  {
+    id: 'ibk',
+    name: 'IBK기업은행-보통예금',
+    iconName: ibk_icon,
+    amount: 1000000,
+  },
+  {
+    id: 'toss',
+    name: '토스뱅크 통장',
+    iconName: toss_icon,
+    amount: 2432,
   },
 ];

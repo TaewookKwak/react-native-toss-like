@@ -2,28 +2,60 @@ import React, {useState} from 'react';
 import {
   FlatList,
   Pressable,
+  RefreshControl,
   ScrollView,
   StyleSheet,
   Switch,
   View,
 } from 'react-native';
-import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {colors} from 'src_toss/styles/color';
 import {assetLists} from 'src_toss/utils/constants';
 import useThemeStore from 'src_toss/utils/zustand/themeStore';
-import BottomSheet from '../components/ui/bottomsheets/bottomsheet.component';
 import IconTextList from '~components/lists/icon-text-list';
-import {colors} from 'src_toss/styles/color';
+import LinkButton from '~components/ui/buttons/link-button';
 import Header from '~components/ui/header/header-home';
 import Text from '~components/ui/text/text';
-import {BlurView} from '@react-native-community/blur';
+import BottomSheet from '../components/ui/bottomsheets/bottomsheet.component';
+
+const wait = timeout => {
+  return new Promise(resolve => setTimeout(resolve, timeout));
+};
 
 const HomePage = () => {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false); // 바텀시트 열림 여부
   const {theme, setTheme} = useThemeStore();
   const insets = useSafeAreaInsets();
+
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
+
+  if (refreshing) {
+    // 스피너 돌아가게
+    <View>
+      <Text.Common>로딩중</Text.Common>
+    </View>;
+  }
+
   return (
-    <View style={[styles.container, {backgroundColor: colors[theme].bg}]}>
-      <ScrollView contentContainerStyle={{paddingTop: insets.top + 50}}>
+    <View
+      style={[
+        styles.container,
+        {backgroundColor: colors[theme].bg, paddingTop: insets.top + 50},
+      ]}>
+      <ScrollView
+        contentContainerStyle={{}}
+        refreshControl={
+          <RefreshControl
+            tintColor={colors[theme].text_title}
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+        }>
         <Pressable
           onPress={() => {
             setIsBottomSheetOpen(true);
@@ -31,7 +63,6 @@ const HomePage = () => {
           <Text.Common>바텀 시트 열기</Text.Common>
         </Pressable>
 
-        {/* 다크모드 토글 버튼 */}
         <Switch
           trackColor={{false: '#d8d521', true: '#aaaaaa'}}
           ios_backgroundColor="#d8d521"
@@ -40,17 +71,29 @@ const HomePage = () => {
           value={theme === 'dark' ? true : false}
         />
 
-        <View style={{flex: 1, height: 100, backgroundColor: 'lightred'}} />
-        <View style={{flex: 1, height: 100, backgroundColor: 'lightblue'}} />
-        <View style={{flex: 1, height: 100, backgroundColor: 'lightred'}} />
-        <View style={{flex: 1, height: 100, backgroundColor: 'lightgreen'}} />
-        <View style={{flex: 1, height: 100, backgroundColor: 'lightgrey'}} />
-        <View style={{flex: 1, height: 100, backgroundColor: 'lightpink'}} />
-        <View style={{flex: 1, height: 100, backgroundColor: 'lightgreen'}} />
-        <View style={{flex: 1, height: 100, backgroundColor: 'lightgrey'}} />
-        <View style={{flex: 1, height: 100, backgroundColor: 'lightpink'}} />
+        <View style={{gap: 10}}>
+          <Pressable
+            onPressOut={() => {
+              console.log('클릭!');
+            }}>
+            <LinkButton
+              text="토스뱅크"
+              containerStyle={{
+                marginVertical: 12,
+                marginHorizontal: 12,
+              }}
+            />
+          </Pressable>
 
-        {/* 바텀시트 */}
+          <View
+            style={{
+              backgroundColor: colors[theme].bg_setion,
+              height: 200,
+              borderRadius: 12,
+            }}
+          />
+        </View>
+
         <BottomSheet
           isOpen={isBottomSheetOpen}
           setIsOpen={setIsBottomSheetOpen}
@@ -84,6 +127,7 @@ export default HomePage;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingHorizontal: 12,
   },
   blurview: {
     position: 'absolute',

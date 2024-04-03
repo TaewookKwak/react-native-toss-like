@@ -11,7 +11,9 @@ const IconTextList = ({data}: {data: AssetListParams}) => {
   const {theme} = useThemeStore();
 
   return (
-    <AnimatedButton>
+    <AnimatedButton
+      backgroundColor={colors[theme].bg_button}
+      foucsedBackgroundColor={colors[theme].bg_button_focus}>
       <AnimatedListTranslateY>
         <Pressable
           style={[styles.container]}

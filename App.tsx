@@ -137,7 +137,7 @@ function App() {
                   <Stack.Group>
                     <Stack.Screen
                       name="Tabs"
-                      component={Tabs}
+                      component={TossTabs}
                       options={{
                         headerShown: false,
                       }}
