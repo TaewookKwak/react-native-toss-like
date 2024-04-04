@@ -65,7 +65,7 @@ export type BankInfoProps = {
   id: string;
   name: string;
   iconName: string;
-  amount?: number;
+  amount: number;
 };
 
 export const bankInfoList: BankInfoProps[] = [

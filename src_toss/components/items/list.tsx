@@ -1,13 +1,10 @@
 // compound component pattern 으로 구현할거고 구조는 리스트 컨테이너, 아이콘, 텍스트, 서브텍스트, 버튼으로 구성할거임
 
-import React from 'react';
-import {View, Text, StyleSheet, Image, ImageSourcePropType} from 'react-native';
-import {colors} from 'src_toss/styles/color';
-import useThemeStore from 'src_toss/utils/zustand/themeStore';
+import React, {ReactNode} from 'react';
+import {Image, ImageSourcePropType, StyleSheet, View} from 'react-native';
 
 type ItemProps = {
-  image: ImageSourcePropType;
-  children: React.ReactElement[];
+  children: ReactNode;
 };
 
 const Item = ({children}: ItemProps) => {
@@ -15,17 +12,18 @@ const Item = ({children}: ItemProps) => {
 };
 
 type PrefixProps = {
-  image: ImageSourcePropType;
-  children: React.ReactElement;
+  image: string;
+  children: ReactNode;
 };
 
 const Prefix = ({image, children}: PrefixProps) => {
-  const {theme} = useThemeStore();
-
   return (
     <View style={styles.prefixContainer}>
-      <Image source={image} style={{width: 24, height: 24}} />
-      {children}
+      <Image
+        source={image as ImageSourcePropType}
+        style={{width: 24, height: 24}}
+      />
+      <View style={styles.textContainer}>{children}</View>
     </View>
   );
 };
@@ -38,6 +36,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
 
     padding: 12,
   },
@@ -45,7 +44,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    gap: 10,
+    gap: 20,
+  },
+  textContainer: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    gap: 6,
   },
   text: {
     marginLeft: 10,
@@ -59,3 +64,5 @@ const styles = StyleSheet.create({
 
 Item.Prefix = Prefix;
 Item.Suffix = Suffix;
+
+export default Item;

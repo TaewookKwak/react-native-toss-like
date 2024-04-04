@@ -52,7 +52,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
-
+    paddingVertical: 12,
+    paddingHorizontal: 12,
     gap: 10,
   },
   icon: {

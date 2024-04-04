@@ -10,15 +10,19 @@ import {
 } from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {colors} from 'src_toss/styles/color';
-import {assetLists} from 'src_toss/utils/constants';
+import {assetLists, bankInfoList} from 'src_toss/utils/constants';
 import useThemeStore from 'src_toss/utils/zustand/themeStore';
 import IconTextList from '~components/lists/icon-text-list';
 import LinkButton from '~components/ui/buttons/link-button';
 import Header from '~components/ui/header/header-home';
 import Text from '~components/ui/text/text';
 import BottomSheet from '../components/ui/bottomsheets/bottomsheet.component';
+import Item from '~components/items/list';
+import AnimatedButton from '~components/animations/animated-button';
+import {formatAmount} from 'src_toss/utils/common';
+import Button from '~components/ui/buttons/button';
 
-const wait = timeout => {
+const wait = (timeout: number) => {
   return new Promise(resolve => setTimeout(resolve, timeout));
 };
 
@@ -71,6 +75,7 @@ const HomePage = () => {
           value={theme === 'dark' ? true : false}
         />
 
+        {/* 토스뱅크 */}
         <View style={{gap: 10}}>
           <Pressable
             onPressOut={() => {
@@ -88,12 +93,40 @@ const HomePage = () => {
           <View
             style={{
               backgroundColor: colors[theme].bg_setion,
-              height: 200,
+
               borderRadius: 12,
-            }}
-          />
+            }}>
+            {bankInfoList?.map((item, index) => {
+              return (
+                <Pressable>
+                  <AnimatedButton>
+                    <Item key={index}>
+                      <Item.Prefix image={item?.iconName}>
+                        <Text.Common style={styles.text}>
+                          {item?.name}
+                        </Text.Common>
+                        <Text.Common style={styles.subText}>
+                          {formatAmount(item?.amount)}
+                        </Text.Common>
+                      </Item.Prefix>
+
+                      <Item.Suffix>
+                        <Button
+                          text="입금"
+                          onPress={() => {
+                            console.log('입금');
+                          }}
+                        />
+                      </Item.Suffix>
+                    </Item>
+                  </AnimatedButton>
+                </Pressable>
+              );
+            })}
+          </View>
         </View>
 
+        {/* 바텀시트 */}
         <BottomSheet
           isOpen={isBottomSheetOpen}
           setIsOpen={setIsBottomSheetOpen}
@@ -110,8 +143,19 @@ const HomePage = () => {
           </Text.Common>
           <FlatList
             data={assetLists}
+            style={{
+              paddingHorizontal: 12,
+            }}
             renderItem={({item}) => <IconTextList data={item} />}
-            keyExtractor={item => item.id.toString()}
+            keyExtractor={item => item?.id?.toString()}
+            ItemSeparatorComponent={() => (
+              <View
+                style={{
+                  height: 12,
+                  backgroundColor: 'transparent',
+                }}
+              />
+            )}
           />
         </BottomSheet>
       </ScrollView>
@@ -135,5 +179,12 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
+  },
+  text: {
+    fontSize: 14,
+  },
+  subText: {
+    fontSize: 20,
+    fontWeight: '600',
   },
 });

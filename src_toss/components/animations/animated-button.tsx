@@ -84,10 +84,10 @@ const AnimatedButton = ({
 
 AnimatedButton.defaultProps = {
   children: null,
-  paddingVertical: 12,
-  paddingHorizontal: 16,
-  marginVertical: 4,
-  marginHorizontal: 12,
+  paddingVertical: 0,
+  paddingHorizontal: 0,
+  marginVertical: 0,
+  marginHorizontal: 0,
   backgroundColor: 'transparent',
   foucsedBackgroundColor: 'transparent',
 };
