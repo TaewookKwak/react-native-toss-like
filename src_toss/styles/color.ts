@@ -19,13 +19,6 @@ export interface ColorProps {
   [key: string]: string; // 추가 속성을 위한 인덱스 시그니처
 }
 
-const commonColor = {
-  colors: {
-    commonWhite: '#FFFFFF',
-    commonBlack: '#000000',
-  },
-};
-
 export const light: ColorProps = {
   bg: '#F2F4F6',
   bg_setion: '#ffffff',
@@ -54,7 +47,7 @@ export const dark: ColorProps = {
   bg_setion: '#17171C',
   bg_bottom_sheet: '#17171C',
   bg_bottom_tab: '#17171C',
-  bg_button: '#17171C',
+  bg_button: '#3B3B46',
   bg_button_focus: '#2C2C35',
   indicator_bottom_sheet: '#3C3C47',
   text: '#FFFFFF',

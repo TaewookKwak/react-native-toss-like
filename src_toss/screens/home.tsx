@@ -21,6 +21,8 @@ import Item from '~components/items/list';
 import AnimatedButton from '~components/animations/animated-button';
 import {formatAmount} from 'src_toss/utils/common';
 import Button from '~components/ui/buttons/button';
+import Divider from '~components/ui/dividers/divider';
+import LinkCenterButton from '~components/ui/buttons/link-center-button';
 
 const wait = (timeout: number) => {
   return new Promise(resolve => setTimeout(resolve, timeout));
@@ -90,40 +92,53 @@ const HomePage = () => {
             />
           </Pressable>
 
-          <View
-            style={{
+          <FlatList
+            scrollEnabled={false}
+            data={bankInfoList}
+            contentContainerStyle={{
               backgroundColor: colors[theme].bg_setion,
-
               borderRadius: 12,
-            }}>
-            {bankInfoList?.map((item, index) => {
-              return (
+              gap: 10,
+              paddingTop: 12,
+            }}
+            keyExtractor={item => item?.id?.toString()}
+            renderItem={({item}) => (
+              <AnimatedButton
+                foucsedBackgroundColor={colors[theme].bg_button_focus}>
                 <Pressable>
-                  <AnimatedButton>
-                    <Item key={index}>
-                      <Item.Prefix image={item?.iconName}>
-                        <Text.Common style={styles.text}>
-                          {item?.name}
-                        </Text.Common>
-                        <Text.Common style={styles.subText}>
-                          {formatAmount(item?.amount)}
-                        </Text.Common>
-                      </Item.Prefix>
+                  <Item key={item?.id} style={{marginHorizontal: 12}}>
+                    <Item.Prefix image={item?.iconName}>
+                      <Text.Common style={styles.text}>
+                        {item?.name}
+                      </Text.Common>
+                      <Text.Common style={styles.subText}>
+                        {formatAmount(item?.amount)}
+                      </Text.Common>
+                    </Item.Prefix>
 
-                      <Item.Suffix>
-                        <Button
-                          text="입금"
-                          onPress={() => {
-                            console.log('입금');
-                          }}
-                        />
-                      </Item.Suffix>
-                    </Item>
-                  </AnimatedButton>
+                    <Item.Suffix
+                      style={[{position: 'absolute', right: 12, zIndex: 20}]}>
+                      <Button
+                        text="입금"
+                        onPress={() => {
+                          console.log('입금');
+                        }}
+                      />
+                    </Item.Suffix>
+                  </Item>
                 </Pressable>
-              );
-            })}
-          </View>
+              </AnimatedButton>
+            )}
+            ListFooterComponent={
+              <>
+                <Divider />
+                <LinkCenterButton
+                  text="내 계좌/대출/증권/포인트 보기"
+                  containerStyle={{}}
+                />
+              </>
+            }
+          />
         </View>
 
         {/* 바텀시트 */}

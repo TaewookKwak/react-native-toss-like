@@ -1,8 +1,9 @@
-import {Pressable, StyleSheet, View} from 'react-native';
 import React from 'react';
-import Text from '../text/text';
-import useThemeStore from 'src_toss/utils/zustand/themeStore';
+import {Pressable, StyleSheet} from 'react-native';
 import {colors} from 'src_toss/styles/color';
+import useThemeStore from 'src_toss/utils/zustand/themeStore';
+import AnimatedButton from '~components/animations/animated-button';
+import Text from '../text/text';
 type ButtonProps = {
   onPress: () => void;
   text: string;
@@ -11,22 +12,27 @@ type ButtonProps = {
 const Button = ({onPress, text}: ButtonProps) => {
   const {theme} = useThemeStore();
   return (
-    <Pressable
-      onPress={onPress}
-      style={[
-        styles.container,
-        {
-          backgroundColor: colors[theme].bg_button,
-        },
-      ]}>
-      <Text.Common
-        style={{
-          fontSize: 16,
-          color: colors[theme].text_button,
-        }}>
-        {text}
-      </Text.Common>
-    </Pressable>
+    <AnimatedButton
+      // backgroundColor={colors[theme].bg_button}
+      foucsedBackgroundColor={colors[theme].bg_button_focus}>
+      <Pressable
+        onPress={onPress}
+        style={[
+          styles.container,
+          {
+            backgroundColor: colors[theme].bg_button,
+          },
+        ]}>
+        <Text.Common
+          style={{
+            fontSize: 14,
+            color: colors[theme].text_button,
+            fontWeight: 'bold',
+          }}>
+          {text}
+        </Text.Common>
+      </Pressable>
+    </AnimatedButton>
   );
 };
 
@@ -39,7 +45,7 @@ export default Button;
 const styles = StyleSheet.create({
   container: {
     paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
+    paddingHorizontal: 14,
+    borderRadius: 8,
   },
 });

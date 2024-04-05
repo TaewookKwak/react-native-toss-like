@@ -1,19 +1,32 @@
 // compound component pattern 으로 구현할거고 구조는 리스트 컨테이너, 아이콘, 텍스트, 서브텍스트, 버튼으로 구성할거임
 
 import React, {ReactNode} from 'react';
-import {Image, ImageSourcePropType, StyleSheet, View} from 'react-native';
+import {
+  Image,
+  ImageSourcePropType,
+  StyleProp,
+  StyleSheet,
+  View,
+  ViewProps,
+} from 'react-native';
 
 type ItemProps = {
   children: ReactNode;
+  style?: any;
 };
 
-const Item = ({children}: ItemProps) => {
-  return <View style={styles.container}>{children}</View>;
+const Item = ({style, children}: ItemProps) => {
+  return <View style={[styles.container, style]}>{children}</View>;
 };
 
 type PrefixProps = {
   image: string;
   children: ReactNode;
+};
+
+type SuffixProps = {
+  children: ReactNode;
+  style?: StyleProp<ViewProps>;
 };
 
 const Prefix = ({image, children}: PrefixProps) => {
@@ -28,8 +41,8 @@ const Prefix = ({image, children}: PrefixProps) => {
   );
 };
 
-const Suffix = ({children}: {children: React.ReactElement}) => {
-  return <>{children}</>;
+const Suffix = ({children, style}: SuffixProps) => {
+  return <View style={[styles.suffixContainer, style]}>{children}</View>;
 };
 
 const styles = StyleSheet.create({
@@ -37,8 +50,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-
-    padding: 12,
+    flex: 1,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
   },
   prefixContainer: {
     flexDirection: 'row',
@@ -46,6 +60,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 20,
   },
+  suffixContainer: {},
   textContainer: {
     flexDirection: 'column',
     justifyContent: 'center',

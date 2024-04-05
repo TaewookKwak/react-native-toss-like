@@ -40,7 +40,7 @@ const AnimatedButton = ({
       transform: [
         {
           scale: withSpring(scaleValue.value, {
-            stiffness: 90,
+            stiffness: 200,
           }),
         },
       ],
@@ -58,7 +58,7 @@ const AnimatedButton = ({
       Gesture.Tap()
         .maxDuration(10000)
         .onBegin(() => {
-          scaleValue.value = 0.98;
+          scaleValue.value = 0.95;
           backgroundColorValue.value =
             foucsedBackgroundColor || colors[theme].bg_button_focus;
         })
