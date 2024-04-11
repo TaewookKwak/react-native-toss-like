@@ -73,7 +73,7 @@ export const bankInfoList: BankInfoProps[] = [
     id: 'kb',
     name: 'KB국민ONE통장-보통예금',
     iconName: kb_icon,
-    amount: 18320000,
+    amount: 183200000,
   },
   {
     id: 'woori',

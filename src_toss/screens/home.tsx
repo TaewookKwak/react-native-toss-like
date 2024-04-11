@@ -1,28 +1,31 @@
 import React, {useState} from 'react';
 import {
   FlatList,
+  ImageSourcePropType,
   Pressable,
   RefreshControl,
   ScrollView,
   StyleSheet,
-  Switch,
   View,
 } from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {colors} from 'src_toss/styles/color';
+import {formatAmount} from 'src_toss/utils/common';
 import {assetLists, bankInfoList} from 'src_toss/utils/constants';
 import useThemeStore from 'src_toss/utils/zustand/themeStore';
+import AnimatedButton from '~components/animations/animated-button';
+import Item from '~components/items/list';
 import IconTextList from '~components/lists/icon-text-list';
+import Button from '~components/ui/buttons/button';
 import LinkButton from '~components/ui/buttons/link-button';
+import LinkCenterButton from '~components/ui/buttons/link-center-button';
+import Divider from '~components/ui/dividers/divider';
 import Header from '~components/ui/header/header-home';
 import Text from '~components/ui/text/text';
 import BottomSheet from '../components/ui/bottomsheets/bottomsheet.component';
-import Item from '~components/items/list';
-import AnimatedButton from '~components/animations/animated-button';
-import {formatAmount} from 'src_toss/utils/common';
-import Button from '~components/ui/buttons/button';
-import Divider from '~components/ui/dividers/divider';
-import LinkCenterButton from '~components/ui/buttons/link-center-button';
+import {Image} from 'react-native';
+import {toss_card} from 'src_toss/utils/icons';
+import DdayText from '~components/ui/text/d-day-text';
 
 const wait = (timeout: number) => {
   return new Promise(resolve => setTimeout(resolve, timeout));
@@ -77,6 +80,7 @@ const HomePage = () => {
             />
           </Pressable>
 
+          {/* 내 계좌 미리보기 */}
           <FlatList
             scrollEnabled={false}
             data={bankInfoList}
@@ -92,7 +96,13 @@ const HomePage = () => {
                 foucsedBackgroundColor={colors[theme].bg_button_focus}>
                 <Pressable>
                   <Item key={item?.id} style={{marginHorizontal: 12}}>
-                    <Item.Prefix image={item?.iconName}>
+                    <Item.Prefix
+                      renderPrefix={
+                        <Image
+                          source={item?.iconName as ImageSourcePropType}
+                          style={{width: 24, height: 24}}
+                        />
+                      }>
                       <Text.Common style={styles.text}>
                         {item?.name}
                       </Text.Common>
@@ -102,7 +112,7 @@ const HomePage = () => {
                     </Item.Prefix>
 
                     <Item.Suffix
-                      style={[{position: 'absolute', right: 12, zIndex: 20}]}>
+                      style={{position: 'absolute', right: 12, zIndex: 20}}>
                       <Button
                         text="입금"
                         onPress={() => {
@@ -124,6 +134,64 @@ const HomePage = () => {
               </>
             }
           />
+
+          {/* 이번 달 요약 */}
+          <View
+            style={[
+              styles.box,
+              {
+                backgroundColor: colors[theme].bg_setion,
+              },
+            ]}>
+            <AnimatedButton
+              foucsedBackgroundColor={colors[theme].bg_button_focus}>
+              <Pressable>
+                <Item style={{marginHorizontal: 12}}>
+                  <Item.Prefix
+                    renderPrefix={
+                      <Image
+                        source={toss_card}
+                        style={{width: 40, height: 40}}
+                        resizeMode="contain"
+                      />
+                    }>
+                    <Text.Common style={styles.text}>4월에 쓴 돈</Text.Common>
+                    <Text.Common style={styles.subText}>
+                      {formatAmount(15000000)}
+                    </Text.Common>
+                  </Item.Prefix>
+
+                  <Item.Suffix
+                    style={{position: 'absolute', right: 12, zIndex: 20}}>
+                    <Button
+                      text="납부"
+                      onPress={() => {
+                        console.log('입금');
+                      }}
+                    />
+                  </Item.Suffix>
+                </Item>
+              </Pressable>
+            </AnimatedButton>
+
+            <Divider />
+
+            <AnimatedButton
+              foucsedBackgroundColor={colors[theme].bg_button_focus}>
+              <Pressable>
+                <Item style={{marginHorizontal: 12}}>
+                  <Item.Prefix renderPrefix={<DdayText date="2024-05-13" />}>
+                    <Text.Common style={styles.text}>
+                      4월 25일날 낼 카드 값
+                    </Text.Common>
+                    <Text.Common style={styles.subText}>
+                      {formatAmount(12399000)}
+                    </Text.Common>
+                  </Item.Prefix>
+                </Item>
+              </Pressable>
+            </AnimatedButton>
+          </View>
         </View>
 
         {/* 바텀시트 */}
@@ -179,5 +247,11 @@ const styles = StyleSheet.create({
   subText: {
     fontSize: 20,
     fontWeight: '600',
+  },
+  box: {
+    borderRadius: 12,
+    gap: 10,
+    paddingTop: 12,
+    paddingBottom: 12,
   },
 });

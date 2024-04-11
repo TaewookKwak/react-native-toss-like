@@ -1,14 +1,7 @@
 // compound component pattern 으로 구현할거고 구조는 리스트 컨테이너, 아이콘, 텍스트, 서브텍스트, 버튼으로 구성할거임
 
-import React, {ReactNode} from 'react';
-import {
-  Image,
-  ImageSourcePropType,
-  StyleProp,
-  StyleSheet,
-  View,
-  ViewProps,
-} from 'react-native';
+import React, {CSSProperties, ReactNode} from 'react';
+import {StyleSheet, View} from 'react-native';
 
 type ItemProps = {
   children: ReactNode;
@@ -20,22 +13,19 @@ const Item = ({style, children}: ItemProps) => {
 };
 
 type PrefixProps = {
-  image: string;
+  renderPrefix?: ReactNode;
   children: ReactNode;
 };
 
 type SuffixProps = {
   children: ReactNode;
-  style?: StyleProp<ViewProps>;
+  style?: CSSProperties;
 };
 
-const Prefix = ({image, children}: PrefixProps) => {
+const Prefix = ({renderPrefix, children}: PrefixProps) => {
   return (
     <View style={styles.prefixContainer}>
-      <Image
-        source={image as ImageSourcePropType}
-        style={{width: 24, height: 24}}
-      />
+      {renderPrefix ? renderPrefix : null}
       <View style={styles.textContainer}>{children}</View>
     </View>
   );

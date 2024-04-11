@@ -8,3 +8,4 @@ export const nh_icon = require('../assets/images/banks/nh.png');
 export const kakaobank_icon = require('../assets/images/banks/kakaobank.png');
 export const ibk_icon = require('../assets/images/banks/ibk.png');
 export const toss_icon = require('../assets/images/banks/toss.png');
+export const toss_card = require('../assets/images/toss_card.png');

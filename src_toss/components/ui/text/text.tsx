@@ -1,11 +1,11 @@
-import React from 'react';
-import {StyleProp, StyleSheet, Text as RnText, TextStyle} from 'react-native';
+import React, {CSSProperties} from 'react';
+import {Text as RnText, StyleSheet} from 'react-native';
 import {colors} from 'src_toss/styles/color';
 import useThemeStore from 'src_toss/utils/zustand/themeStore';
 
 type TextProps = {
   children: React.ReactNode;
-  style?: StyleProp<TextStyle>;
+  style?: CSSProperties;
   numberOfLines?: number;
   ellipsizeMode?: 'head' | 'middle' | 'tail' | 'clip';
   [key: string]: any;
