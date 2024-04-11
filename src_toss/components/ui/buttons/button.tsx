@@ -12,9 +12,7 @@ type ButtonProps = {
 const Button = ({onPress, text}: ButtonProps) => {
   const {theme} = useThemeStore();
   return (
-    <AnimatedButton
-      // backgroundColor={colors[theme].bg_button}
-      foucsedBackgroundColor={colors[theme].bg_button_focus}>
+    <AnimatedButton foucsedBackgroundColor={colors[theme].bg_button_focus}>
       <Pressable
         onPress={onPress}
         style={[
@@ -23,12 +21,7 @@ const Button = ({onPress, text}: ButtonProps) => {
             backgroundColor: colors[theme].bg_button,
           },
         ]}>
-        <Text.Common
-          style={{
-            fontSize: 14,
-            color: colors[theme].text_button,
-            fontWeight: 'bold',
-          }}>
+        <Text.Common style={[styles.text, {color: colors[theme].text_button}]}>
           {text}
         </Text.Common>
       </Pressable>
@@ -43,6 +36,10 @@ Button.defaultProps = {
 export default Button;
 
 const styles = StyleSheet.create({
+  text: {
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
   container: {
     paddingVertical: 10,
     paddingHorizontal: 14,

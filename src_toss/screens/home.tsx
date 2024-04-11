@@ -54,7 +54,7 @@ const HomePage = () => {
         {backgroundColor: colors[theme].bg, paddingTop: insets.top + 50},
       ]}>
       <ScrollView
-        contentContainerStyle={{}}
+        contentContainerStyle={{paddingVertical: 10}}
         refreshControl={
           <RefreshControl
             tintColor={colors[theme].text_title}
@@ -62,26 +62,11 @@ const HomePage = () => {
             onRefresh={onRefresh}
           />
         }>
-        <Pressable
-          onPress={() => {
-            setIsBottomSheetOpen(true);
-          }}>
-          <Text.Common>바텀 시트 열기</Text.Common>
-        </Pressable>
-
-        <Switch
-          trackColor={{false: '#d8d521', true: '#aaaaaa'}}
-          ios_backgroundColor="#d8d521"
-          thumbColor={theme === 'dark' ? 'black' : 'white'}
-          onValueChange={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-          value={theme === 'dark' ? true : false}
-        />
-
         {/* 토스뱅크 */}
         <View style={{gap: 10}}>
           <Pressable
             onPressOut={() => {
-              console.log('클릭!');
+              setIsBottomSheetOpen(true);
             }}>
             <LinkButton
               text="토스뱅크"
@@ -187,13 +172,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 12,
-  },
-  blurview: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
   },
   text: {
     fontSize: 14,

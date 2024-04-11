@@ -36,10 +36,6 @@ const useColorScheme = (delay = 500): NonNullable<ColorSchemeName> => {
     };
   }, [onColorSchemeChange, resetCurrentTimeout]);
 
-  console.log('====================================');
-  console.log('useColorScheme', colorScheme);
-  console.log('====================================');
-
   return colorScheme as NonNullable<ColorSchemeName>;
 };
 

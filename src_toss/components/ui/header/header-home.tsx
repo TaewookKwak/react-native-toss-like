@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {LayoutChangeEvent, StyleSheet, View} from 'react-native';
+import {LayoutChangeEvent, StyleSheet, Switch, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import {colors} from 'src_toss/styles/color';
@@ -10,7 +10,7 @@ import {BlurView} from '@react-native-community/blur';
 
 const HomeHeader = () => {
   const insets = useSafeAreaInsets();
-  const {theme} = useThemeStore();
+  const {theme, setTheme} = useThemeStore();
   const [height, setHeight] = useState(0);
 
   const handleLayout = (e: LayoutChangeEvent) => {
@@ -30,6 +30,13 @@ const HomeHeader = () => {
           toss
         </Text.Common>
         <View style={[styles.icons]}>
+          <Switch
+            trackColor={{false: colors[theme].logo, true: colors[theme].logo}}
+            ios_backgroundColor={colors[theme].logo}
+            thumbColor={theme === 'dark' ? 'black' : 'white'}
+            onValueChange={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+            value={theme === 'dark' ? true : false}
+          />
           <AnimatedButtonIcon>
             <IonIcon
               name="location-sharp"
