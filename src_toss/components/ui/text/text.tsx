@@ -23,7 +23,7 @@ const Common = ({
   const {theme} = useThemeStore();
   return (
     <RnText
-      style={[styles.text, {color: colors[theme].text}, style]}
+      style={[styles.text, {color: colors[theme].text_title}, style]}
       numberOfLines={numberOfLines}
       ellipsizeMode={ellipsizeMode}
       {...props}>

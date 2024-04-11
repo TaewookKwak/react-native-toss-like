@@ -7,7 +7,11 @@ type DividerProps = {
   style?: StyleProp<ViewProps>;
 };
 
-const Divider = ({style}: DividerProps) => {
+const Divider = () => {
+  return null;
+};
+
+const Horizontal = ({style}: DividerProps) => {
   const {theme} = useThemeStore();
   return (
     <View
@@ -22,5 +26,24 @@ const Divider = ({style}: DividerProps) => {
     />
   );
 };
+
+const Vertical = ({style}: DividerProps) => {
+  const {theme} = useThemeStore();
+  return (
+    <View
+      style={[
+        {
+          borderRightColor: colors[theme].divider,
+          borderRightWidth: 1,
+          alignSelf: 'stretch',
+        },
+        style,
+      ]}
+    />
+  );
+};
+
+Divider.Horizontal = Horizontal;
+Divider.Vertical = Vertical;
 
 export default Divider;

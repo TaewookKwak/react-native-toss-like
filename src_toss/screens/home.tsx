@@ -126,7 +126,7 @@ const HomePage = () => {
             )}
             ListFooterComponent={
               <>
-                <Divider />
+                <Divider.Horizontal />
                 <LinkCenterButton
                   text="내 계좌/대출/증권/포인트 보기"
                   containerStyle={{}}
@@ -174,7 +174,7 @@ const HomePage = () => {
               </Pressable>
             </AnimatedButton>
 
-            <Divider />
+            <Divider.Horizontal />
 
             <AnimatedButton
               foucsedBackgroundColor={colors[theme].bg_button_focus}>
