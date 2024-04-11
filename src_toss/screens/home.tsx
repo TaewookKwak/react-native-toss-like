@@ -11,7 +11,11 @@ import {
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {colors} from 'src_toss/styles/color';
 import {formatAmount} from 'src_toss/utils/common';
-import {assetLists, bankInfoList} from 'src_toss/utils/constants';
+import {
+  assetLists,
+  bankInfoList,
+  bankServiceList,
+} from 'src_toss/utils/constants';
 import useThemeStore from 'src_toss/utils/zustand/themeStore';
 import AnimatedButton from '~components/animations/animated-button';
 import Item from '~components/items/list';
@@ -33,7 +37,7 @@ const wait = (timeout: number) => {
 
 const HomePage = () => {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false); // 바텀시트 열림 여부
-  const {theme, setTheme} = useThemeStore();
+  const {theme} = useThemeStore();
   const insets = useSafeAreaInsets();
 
   const [refreshing, setRefreshing] = React.useState(false);
@@ -126,7 +130,7 @@ const HomePage = () => {
             )}
             ListFooterComponent={
               <>
-                <Divider.Horizontal />
+                <Divider.Horizontal style={{marginHorizontal: 24}} />
                 <LinkCenterButton
                   text="내 계좌/대출/증권/포인트 보기"
                   containerStyle={{}}
@@ -174,7 +178,7 @@ const HomePage = () => {
               </Pressable>
             </AnimatedButton>
 
-            <Divider.Horizontal />
+            <Divider.Horizontal style={{marginHorizontal: 24}} />
 
             <AnimatedButton
               foucsedBackgroundColor={colors[theme].bg_button_focus}>
@@ -192,6 +196,40 @@ const HomePage = () => {
               </Pressable>
             </AnimatedButton>
           </View>
+
+          {/* 계좌개설/카드발급/대출받기 */}
+          <FlatList
+            contentContainerStyle={{
+              backgroundColor: colors[theme].bg_setion,
+              borderRadius: 12,
+              alignSelf: 'stretch',
+              flex: 1,
+              justifyContent: 'space-evenly',
+            }}
+            data={bankServiceList}
+            horizontal={true}
+            scrollEnabled={false}
+            renderItem={({item}) => (
+              <AnimatedButton
+                key={item?.id}
+                foucsedBackgroundColor={colors[theme].bg_button_focus}>
+                <Pressable style={{marginVertical: 20, marginHorizontal: 36}}>
+                  <Text.Common
+                    style={{
+                      fontSize: 16,
+                      fontWeight: 600,
+                      color: colors[theme].text_list,
+                    }}>
+                    {item?.name}
+                  </Text.Common>
+                </Pressable>
+              </AnimatedButton>
+            )}
+            keyExtractor={item => item?.id?.toString()}
+            ItemSeparatorComponent={() => (
+              <Divider.Vertical style={{marginVertical: 12}} />
+            )}
+          />
         </View>
 
         {/* 바텀시트 */}

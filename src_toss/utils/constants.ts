@@ -94,3 +94,28 @@ export const bankInfoList: BankInfoProps[] = [
     amount: 2432,
   },
 ];
+
+type BankServiceListProps = {
+  id: string;
+  name: string;
+  to: string;
+};
+
+// 계좌개설/카드발급/대출받기
+export const bankServiceList: BankServiceListProps[] = [
+  {
+    id: 'account_open',
+    name: '계좌개설',
+    to: 'ModalAccountOpen',
+  },
+  {
+    id: 'card_issue',
+    name: '카드발급',
+    to: 'ModalCardIssue',
+  },
+  {
+    id: 'loan',
+    name: '대출받기',
+    to: 'ModalLoan',
+  },
+];
