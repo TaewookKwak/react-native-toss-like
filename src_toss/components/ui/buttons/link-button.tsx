@@ -7,7 +7,6 @@ import {
   Pressable,
   StyleProp,
   StyleSheet,
-  Text,
   TextStyle,
   View,
   ViewStyle,
@@ -16,6 +15,7 @@ import IconFAw6 from 'react-native-vector-icons/FontAwesome6';
 import {colors} from 'src_toss/styles/color';
 import useThemeStore from 'src_toss/utils/zustand/themeStore';
 import AnimatedButton from '~components/animations/animated-button';
+import Text from '../text/text';
 
 type LinkButtonProps = {
   text: string;
@@ -54,7 +54,7 @@ const LinkButton = ({
               resizeMode="contain"
             />
           )}
-          <Text
+          <Text.Common
             style={[
               styles.text,
               {
@@ -63,7 +63,7 @@ const LinkButton = ({
               textStyle,
             ]}>
             {text}
-          </Text>
+          </Text.Common>
         </View>
 
         <IconFAw6

@@ -10,11 +10,12 @@ import {
 } from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {colors} from 'src_toss/styles/color';
-import {formatAmount} from 'src_toss/utils/common';
+import {formatAmount, getToday} from 'src_toss/utils/common';
 import {
   assetLists,
   bankInfoList,
   bankServiceList,
+  etcServiceList,
 } from 'src_toss/utils/constants';
 import useThemeStore from 'src_toss/utils/zustand/themeStore';
 import AnimatedButton from '~components/animations/animated-button';
@@ -61,7 +62,10 @@ const HomePage = () => {
         {backgroundColor: colors[theme].bg, paddingTop: insets.top + 50},
       ]}>
       <ScrollView
-        contentContainerStyle={{paddingVertical: 10}}
+        contentContainerStyle={{
+          paddingVertical: 10,
+          paddingBottom: insets.bottom + 60 + 10,
+        }}
         refreshControl={
           <RefreshControl
             tintColor={colors[theme].text_title}
@@ -131,10 +135,9 @@ const HomePage = () => {
             ListFooterComponent={
               <>
                 <Divider.Horizontal style={{marginHorizontal: 24}} />
-                <LinkCenterButton
-                  text="내 계좌/대출/증권/포인트 보기"
-                  containerStyle={{}}
-                />
+                <Pressable>
+                  <LinkCenterButton text="내 계좌/대출/증권/포인트 보기" />
+                </Pressable>
               </>
             }
           />
@@ -229,6 +232,58 @@ const HomePage = () => {
             ItemSeparatorComponent={() => (
               <Divider.Vertical style={{marginVertical: 12}} />
             )}
+          />
+
+          {/* 기타서비스 */}
+          <FlatList
+            data={etcServiceList}
+            contentContainerStyle={[
+              styles.box,
+              {
+                backgroundColor: colors[theme].bg_setion,
+              },
+            ]}
+            keyExtractor={item => item?.id?.toString()}
+            ListHeaderComponent={() => (
+              <Item
+                style={{
+                  marginHorizontal: 12,
+                  paddingVertical: 12,
+                }}>
+                <Item.Prefix>
+                  <Text.Common
+                    style={{
+                      fontSize: 16,
+                      fontWeight: '400',
+                    }}>
+                    {getToday()}
+                  </Text.Common>
+                  <Text.Common
+                    style={{
+                      fontSize: 18,
+                      fontWeight: '700',
+                    }}>
+                    곽태욱님을 위해 준비했어요
+                  </Text.Common>
+                </Item.Prefix>
+              </Item>
+            )}
+            renderItem={({item}) => (
+              <LinkButton
+                text={item?.name}
+                image={item?.iconName as ImageSourcePropType}
+                textStyle={{fontSize: 18, fontWeight: '400'}}
+                containerStyle={{}}
+              />
+            )}
+            ListFooterComponent={
+              <>
+                <Divider.Horizontal style={{marginHorizontal: 24}} />
+                <Pressable>
+                  <LinkCenterButton text="추천 서비스 더보기" />
+                </Pressable>
+              </>
+            }
           />
         </View>
 

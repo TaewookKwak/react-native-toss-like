@@ -17,3 +17,13 @@ export function calculateDday(date: Date): string {
     return '+' + Math.floor(diff / (1000 * 60 * 60 * 24));
   }
 }
+
+// 오늘 날짜 요일을 return 하는 함수 (ex. 1월 1일 토요일)
+export function getToday(): string {
+  const today = new Date();
+  const month = today.getMonth() + 1;
+  const date = today.getDate();
+  const day = today.getDay();
+  const dayList = ['일', '월', '화', '수', '목', '금', '토'];
+  return `${month}월 ${date}일 ${dayList[day]}요일`;
+}

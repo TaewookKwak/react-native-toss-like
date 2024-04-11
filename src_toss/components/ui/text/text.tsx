@@ -5,7 +5,7 @@ import useThemeStore from 'src_toss/utils/zustand/themeStore';
 
 type TextProps = {
   children: React.ReactNode;
-  style?: CSSProperties;
+  style?: CSSProperties | undefined;
   numberOfLines?: number;
   ellipsizeMode?: 'head' | 'middle' | 'tail' | 'clip';
   [key: string]: any;

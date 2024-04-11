@@ -1,61 +1,69 @@
 // 은행/카드/증권/포인트-페이머니/보험/할부금융(캐피탈)/부동산/자동차/통신사/현금(직접입력)
 
-import {ibk_icon, kb_icon, toss_icon, woori_icon} from './icons';
+import {
+  apartment_icon,
+  car_sell,
+  ibk_icon,
+  kb_icon,
+  support,
+  toss_icon,
+  woori_icon,
+} from './icons';
 
 export type AssetListParams = {
-  id?: number;
+  id: string;
   name: string;
   iconName: string;
 };
 
 export const assetLists: AssetListParams[] = [
   {
-    id: 1,
+    id: '1',
     name: '은행',
     iconName: 'landmark',
   },
   {
-    id: 2,
+    id: '2',
     name: '카드',
     iconName: 'credit-card',
   },
   {
-    id: 3,
+    id: '3',
     name: '증권',
     iconName: 'chart-line',
   },
   {
-    id: 4,
+    id: '4',
     name: '포인트',
     iconName: 'circle-dollar-to-slot',
   },
   {
-    id: 6,
+    id: '6',
     name: '보험',
     iconName: 'shield-halved',
   },
   {
-    id: 7,
+    id: '7',
     name: '할부금융',
     iconName: 'money-check-dollar',
   },
   {
-    id: 8,
+    id: '8',
     name: '부동산',
     iconName: 'house',
   },
   {
-    id: 9,
+    id: '9',
     name: '자동차',
     iconName: 'car',
   },
   {
-    id: 10,
+    id: '10',
     name: '통신사',
     iconName: 'phone',
   },
   {
-    id: 11,
+    id: '11',
     name: '현금',
     iconName: 'pencil',
   },
@@ -117,5 +125,34 @@ export const bankServiceList: BankServiceListProps[] = [
     id: 'loan',
     name: '대출받기',
     to: 'ModalLoan',
+  },
+];
+
+type EtcServiceListProps = {
+  id: string;
+  name: string;
+  to: string;
+  iconName?: string;
+};
+
+// /중고차 대출 알아보기/내 보험 상담하기/ 주택담보대출 찾기
+export const etcServiceList: EtcServiceListProps[] = [
+  {
+    id: 'used_car_loan',
+    name: '중고차 대출 알아보기',
+    to: 'ModalUsedCarLoan',
+    iconName: car_sell,
+  },
+  {
+    id: 'insurance',
+    name: '내 보험 상담하기',
+    to: 'ModalInsurance',
+    iconName: support,
+  },
+  {
+    id: 'mortgage_loan',
+    name: '주택담보대출 찾기',
+    to: 'ModalMortgageLoan',
+    iconName: apartment_icon,
   },
 ];
