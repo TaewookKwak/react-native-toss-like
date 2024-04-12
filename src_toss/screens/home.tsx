@@ -236,6 +236,7 @@ const HomePage = () => {
 
           {/* 기타서비스 */}
           <FlatList
+            scrollEnabled={false}
             data={etcServiceList}
             contentContainerStyle={[
               styles.box,
