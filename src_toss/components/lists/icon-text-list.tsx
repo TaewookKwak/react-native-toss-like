@@ -12,8 +12,8 @@ const IconTextList = ({data}: {data: AssetListParams}) => {
 
   return (
     <AnimatedButton
-      backgroundColor={colors[theme].bg_setion}
-      foucsedBackgroundColor={colors[theme].bg_button_focus}>
+      backgroundColor={colors[theme].white}
+      foucsedBackgroundColor={colors[theme].mediumGray}>
       <AnimatedListTranslateY>
         <Pressable
           style={[styles.container]}
@@ -26,7 +26,7 @@ const IconTextList = ({data}: {data: AssetListParams}) => {
             style={[
               styles.icon,
               {
-                color: colors[theme].text,
+                color: colors[theme].mutedGray,
               },
             ]}
           />
@@ -34,7 +34,7 @@ const IconTextList = ({data}: {data: AssetListParams}) => {
             style={[
               styles.text,
               {
-                color: colors[theme].text,
+                color: colors[theme].mutedGray,
               },
             ]}>
             {data.name}

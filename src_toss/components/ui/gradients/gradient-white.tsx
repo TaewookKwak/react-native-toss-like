@@ -16,7 +16,7 @@ export default function GrandientWhite() {
               styles.gradientEffect1,
               {
                 height: 50 * (1 / count) * index,
-                backgroundColor: colors[theme].bg,
+                backgroundColor: colors[theme].lightGray,
               },
             ]}
             key={index}

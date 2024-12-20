@@ -22,7 +22,7 @@ type TabBarIconProps = {
 const TabBarIcon = ({label, icon, focused}: TabBarIconProps) => {
   const {theme} = useThemeStore();
   const scaleValue = useSharedValue(1);
-  const backgroundColorValue = useSharedValue(colors[theme].bg_bottom_tab);
+  const backgroundColorValue = useSharedValue(colors[theme].white);
 
   const stylesT = React.useMemo(() => styles(colors[theme]), [theme]);
 
@@ -46,17 +46,17 @@ const TabBarIcon = ({label, icon, focused}: TabBarIconProps) => {
         .maxDuration(10000)
         .onBegin(() => {
           scaleValue.value = 0.9;
-          backgroundColorValue.value = colors[theme].bg_button_focus;
+          backgroundColorValue.value = colors[theme].mediumGray;
         })
         .onFinalize(() => {
           scaleValue.value = 1;
-          backgroundColorValue.value = colors[theme].bg_bottom_tab;
+          backgroundColorValue.value = colors[theme].white;
         }),
     [backgroundColorValue, scaleValue, theme],
   );
 
   useEffect(() => {
-    backgroundColorValue.value = colors[theme].bg_bottom_tab;
+    backgroundColorValue.value = colors[theme].white;
   }, [theme, backgroundColorValue]);
 
   return (
@@ -99,10 +99,10 @@ const styles = (theme: StyleProps) =>
       fontWeight: '500',
     },
     activeTabBarText: {
-      color: theme.text_bottom_tab_active,
+      color: theme.darkSlate,
     },
     inactiveTabBarText: {
-      color: theme.text_bottom_tab,
+      color: theme.lightSlate,
     },
     tabBarIconContainer: {
       display: 'flex',

@@ -60,7 +60,7 @@ const AnimatedButton = ({
         .onBegin(() => {
           scaleValue.value = 0.95;
           backgroundColorValue.value =
-            foucsedBackgroundColor || colors[theme].bg_button_focus;
+            foucsedBackgroundColor || colors[theme].mediumGray;
         })
         .onFinalize(() => {
           scaleValue.value = 1;

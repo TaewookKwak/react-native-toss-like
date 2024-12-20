@@ -56,9 +56,9 @@ const Tabs = () => {
           borderTopLeftRadius: 20,
           borderTopRightRadius: 20,
           height: insets.bottom + 60,
-          backgroundColor: colors[theme].bg_bottom_tab,
-          borderColor: colors[theme].bg_bottom_tab,
-          borderTopColor: colors[theme].bg_bottom_tab,
+          backgroundColor: colors[theme].white,
+          borderColor: colors[theme].white,
+          borderTopColor: colors[theme].white,
         },
       }}>
       {tabs.map((tab, index) => {

@@ -102,7 +102,7 @@ const styles = (theme: StyleProps) =>
       margin: 10,
       borderTopRightRadius: 20,
       borderTopLeftRadius: 20,
-      backgroundColor: theme.bg_bottom_sheet,
+      backgroundColor: theme.white,
     },
     backgroundStyle: {
       // bottom sheet background
@@ -118,7 +118,7 @@ const styles = (theme: StyleProps) =>
     },
     handleIndicatorStyle: {
       // handle indicator style
-      backgroundColor: theme.indicator_bottom_sheet,
+      backgroundColor: theme.lightGray,
       width: 50,
     },
   });

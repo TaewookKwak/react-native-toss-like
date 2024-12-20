@@ -26,13 +26,16 @@ const HomeHeader = () => {
             paddingTop: insets.top,
           },
         ]}>
-        <Text.Common style={[styles.logo, {color: colors[theme].logo}]}>
+        <Text.Common style={{...styles.logo, color: colors[theme].primary}}>
           toss
         </Text.Common>
         <View style={[styles.icons]}>
           <Switch
-            trackColor={{false: colors[theme].logo, true: colors[theme].logo}}
-            ios_backgroundColor={colors[theme].logo}
+            trackColor={{
+              false: colors[theme].primary,
+              true: colors[theme].primary,
+            }}
+            ios_backgroundColor={colors[theme].primary}
             thumbColor={theme === 'dark' ? 'black' : 'white'}
             onValueChange={() => setTheme(theme === 'light' ? 'dark' : 'light')}
             value={theme === 'dark' ? true : false}
@@ -41,14 +44,14 @@ const HomeHeader = () => {
             <IonIcon
               name="location-sharp"
               size={30}
-              color={colors[theme].icon}
+              color={colors[theme].lightSlate}
             />
           </AnimatedButtonIcon>
           <AnimatedButtonIcon>
             <IonIcon
               name="notifications"
               size={30}
-              color={colors[theme].icon}
+              color={colors[theme].lightSlate}
             />
           </AnimatedButtonIcon>
         </View>

@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Image,
   ImageRequireSource,
   ImageStyle,
   ImageURISource,
@@ -39,14 +38,14 @@ const LinkCenterButton = ({
       paddingVertical={0}
       marginHorizontal={0}
       marginVertical={0}
-      backgroundColor={colors[theme].bg_setion}
-      foucsedBackgroundColor={colors[theme].bg_button_focus}>
+      backgroundColor={colors[theme].white}
+      foucsedBackgroundColor={colors[theme].mediumGray}>
       <View style={[styles.container, containerStyle]}>
         <Text
           style={[
             styles.text,
             {
-              color: colors[theme].text_more,
+              color: colors[theme].mutedGray,
             },
             textStyle,
           ]}>
@@ -58,7 +57,7 @@ const LinkCenterButton = ({
           size={16}
           style={[
             {
-              color: colors[theme].icon,
+              color: colors[theme].lightSlate,
             },
           ]}
         />

@@ -44,7 +44,7 @@ const AnimatedButtonIcon = ({children}: AnimatedButtonProps) => {
         .maxDuration(10000)
         .onBegin(() => {
           scaleValue.value = 0.9;
-          backgroundColorValue.value = colors[theme].bg_button_focus;
+          backgroundColorValue.value = colors[theme].mediumGray;
         })
         .onFinalize(() => {
           scaleValue.value = 1;

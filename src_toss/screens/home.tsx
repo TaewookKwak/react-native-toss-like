@@ -59,7 +59,7 @@ const HomePage = () => {
     <View
       style={[
         styles.container,
-        {backgroundColor: colors[theme].bg, paddingTop: insets.top + 50},
+        {backgroundColor: colors[theme].lightGray, paddingTop: insets.top + 50},
       ]}>
       <ScrollView
         contentContainerStyle={{
@@ -68,7 +68,7 @@ const HomePage = () => {
         }}
         refreshControl={
           <RefreshControl
-            tintColor={colors[theme].text_title}
+            tintColor={colors[theme].darkSlate}
             refreshing={refreshing}
             onRefresh={onRefresh}
           />
@@ -93,15 +93,14 @@ const HomePage = () => {
             scrollEnabled={false}
             data={bankInfoList}
             contentContainerStyle={{
-              backgroundColor: colors[theme].bg_setion,
+              backgroundColor: colors[theme].white,
               borderRadius: 12,
               gap: 10,
               paddingTop: 12,
             }}
             keyExtractor={item => item?.id?.toString()}
             renderItem={({item}) => (
-              <AnimatedButton
-                foucsedBackgroundColor={colors[theme].bg_button_focus}>
+              <AnimatedButton foucsedBackgroundColor={colors[theme].mediumGray}>
                 <Pressable>
                   <Item key={item?.id} style={{marginHorizontal: 12}}>
                     <Item.Prefix
@@ -147,11 +146,10 @@ const HomePage = () => {
             style={[
               styles.box,
               {
-                backgroundColor: colors[theme].bg_setion,
+                backgroundColor: colors[theme].white,
               },
             ]}>
-            <AnimatedButton
-              foucsedBackgroundColor={colors[theme].bg_button_focus}>
+            <AnimatedButton foucsedBackgroundColor={colors[theme].mediumGray}>
               <Pressable>
                 <Item style={{marginHorizontal: 12}}>
                   <Item.Prefix
@@ -183,8 +181,7 @@ const HomePage = () => {
 
             <Divider.Horizontal style={{marginHorizontal: 24}} />
 
-            <AnimatedButton
-              foucsedBackgroundColor={colors[theme].bg_button_focus}>
+            <AnimatedButton foucsedBackgroundColor={colors[theme].mediumGray}>
               <Pressable>
                 <Item style={{marginHorizontal: 12}}>
                   <Item.Prefix renderPrefix={<DdayText date="2024-05-13" />}>
@@ -203,7 +200,7 @@ const HomePage = () => {
           {/* 계좌개설/카드발급/대출받기 */}
           <FlatList
             contentContainerStyle={{
-              backgroundColor: colors[theme].bg_setion,
+              backgroundColor: colors[theme].white,
               borderRadius: 12,
               alignSelf: 'stretch',
               flex: 1,
@@ -215,13 +212,13 @@ const HomePage = () => {
             renderItem={({item}) => (
               <AnimatedButton
                 key={item?.id}
-                foucsedBackgroundColor={colors[theme].bg_button_focus}>
+                foucsedBackgroundColor={colors[theme].mediumGray}>
                 <Pressable style={{marginVertical: 20, marginHorizontal: 36}}>
                   <Text.Common
                     style={{
                       fontSize: 16,
-                      fontWeight: 600,
-                      color: colors[theme].text_list,
+                      fontWeight: '600',
+                      color: colors[theme].slateGray,
                     }}>
                     {item?.name}
                   </Text.Common>
@@ -241,11 +238,11 @@ const HomePage = () => {
             contentContainerStyle={[
               styles.box,
               {
-                backgroundColor: colors[theme].bg_setion,
+                backgroundColor: colors[theme].white,
               },
             ]}
             keyExtractor={item => item?.id?.toString()}
-            ListHeaderComponent={() => (
+            ListHeaderComponent={
               <Item
                 style={{
                   marginHorizontal: 12,
@@ -268,7 +265,7 @@ const HomePage = () => {
                   </Text.Common>
                 </Item.Prefix>
               </Item>
-            )}
+            }
             renderItem={({item}) => (
               <LinkButton
                 text={item?.name}
@@ -295,7 +292,7 @@ const HomePage = () => {
           snapPoint={['70%']}>
           <Text.Common
             style={{
-              color: colors[theme].text_title,
+              color: colors[theme].darkSlate,
               fontSize: 20,
               fontWeight: '700',
               paddingHorizontal: 24,
@@ -310,14 +307,6 @@ const HomePage = () => {
             }}
             renderItem={({item}) => <IconTextList data={item} />}
             keyExtractor={item => item?.id?.toString()}
-            ItemSeparatorComponent={() => (
-              <View
-                style={{
-                  height: 12,
-                  backgroundColor: 'transparent',
-                }}
-              />
-            )}
           />
         </BottomSheet>
       </ScrollView>

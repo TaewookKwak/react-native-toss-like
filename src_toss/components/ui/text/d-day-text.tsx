@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import Text from './text';
 import {calculateDday} from 'src_toss/utils/common';
 
@@ -9,22 +9,8 @@ type DdayTextProps = {
 
 const DdayText = ({date}: DdayTextProps) => {
   return (
-    <View
-      style={{
-        width: 40,
-        height: 40,
-        backgroundColor: '#9f9f9f',
-        borderRadius: 12,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
-      <Text.Common
-        style={{
-          color: 'white',
-          textAlign: 'center',
-          fontSize: 14,
-          fontWeight: 700,
-        }}>
+    <View style={styles.container}>
+      <Text.Common style={styles.text}>
         {`D${calculateDday(new Date(date))}`}
       </Text.Common>
     </View>
@@ -32,3 +18,20 @@ const DdayText = ({date}: DdayTextProps) => {
 };
 
 export default DdayText;
+
+const styles = StyleSheet.create({
+  container: {
+    width: 40,
+    height: 40,
+    backgroundColor: '#9f9f9f',
+    borderRadius: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 14,
+    fontWeight: '700',
+  },
+});

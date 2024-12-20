@@ -17,7 +17,7 @@ const Horizontal = ({style}: DividerProps) => {
     <View
       style={[
         {
-          borderBottomColor: colors[theme].divider,
+          borderBottomColor: colors[theme].lightGray,
           borderBottomWidth: 2,
           alignSelf: 'stretch',
         },
@@ -33,7 +33,7 @@ const Vertical = ({style}: DividerProps) => {
     <View
       style={[
         {
-          borderRightColor: colors[theme].divider,
+          borderRightColor: colors[theme].lightGray,
           borderRightWidth: 2,
           alignSelf: 'stretch',
         },

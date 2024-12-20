@@ -4,7 +4,6 @@ import {
   ImageRequireSource,
   ImageStyle,
   ImageURISource,
-  Pressable,
   StyleProp,
   StyleSheet,
   TextStyle,
@@ -40,8 +39,8 @@ const LinkButton = ({
       paddingVertical={0}
       marginHorizontal={0}
       marginVertical={0}
-      backgroundColor={colors[theme].bg_setion}
-      foucsedBackgroundColor={colors[theme].bg_button_focus}>
+      backgroundColor={colors[theme].white}
+      foucsedBackgroundColor={colors[theme].mediumGray}>
       {/* <AnimatedListTranslateY> */}
       <View style={[styles.container, containerStyle]}>
         <View style={[styles.textContainer]}>
@@ -58,7 +57,7 @@ const LinkButton = ({
             style={[
               styles.text,
               {
-                color: colors[theme].text,
+                color: colors[theme].darkSlate,
               },
               textStyle,
             ]}>
@@ -72,7 +71,7 @@ const LinkButton = ({
           style={[
             styles.icon,
             {
-              color: colors[theme].icon,
+              color: colors[theme].lightSlate,
             },
           ]}
         />

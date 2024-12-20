@@ -13,7 +13,7 @@ const useThemeStore = create<ThemeStoreProps>(set => ({
   theme: Appearance.getColorScheme() === 'dark' ? 'dark' : 'light',
   setTheme: theme => {
     set({theme});
-    storage.set('theme', theme);
+    storage.set('theme', theme || 'light');
   },
 }));
 
