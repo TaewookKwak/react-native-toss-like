@@ -1,15 +1,14 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React from 'react';
-import {StyleSheet} from 'react-native';
 
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {colors} from 'src_toss/styles/color';
+import useThemeStore from 'src_toss/utils/zustand/themeStore';
 import AllPage from '../screens/all';
 import BenefitsPage from '../screens/benefits';
 import HomePage from '../screens/home';
 import PayPage from '../screens/pay';
 import TabBarIcon from './bottom-tab-icon';
-import useThemeStore from 'src_toss/utils/zustand/themeStore';
-import {colors} from 'src_toss/styles/color';
 
 const Tab = createBottomTabNavigator();
 
