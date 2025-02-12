@@ -1,25 +1,19 @@
-import React, {useState} from 'react';
-import {LayoutChangeEvent, StyleSheet, Switch, View} from 'react-native';
+import React from 'react';
+import {StyleSheet, Switch, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import IonIcon from 'react-native-vector-icons/Ionicons';
+import AnimatedButtonIcon from 'src/components/animations/animated-button-icon';
 import {colors} from 'src/styles/color';
 import useThemeStore from 'src/utils/zustand/themeStore';
-import AnimatedButtonIcon from 'src/components/animations/animated-button-icon';
 import Text from '../text/text';
-import {BlurView} from '@react-native-community/blur';
 
 const HomeHeader = () => {
   const insets = useSafeAreaInsets();
   const {theme, setTheme} = useThemeStore();
-  const [height, setHeight] = useState(0);
 
-  const handleLayout = (e: LayoutChangeEvent) => {
-    setHeight(e.nativeEvent.layout.height);
-  };
   return (
     <>
       <View
-        onLayout={handleLayout}
         style={[
           styles.container,
           {
@@ -56,17 +50,6 @@ const HomeHeader = () => {
           </AnimatedButtonIcon>
         </View>
       </View>
-      <BlurView
-        style={[
-          styles.blurview,
-          {
-            height: height,
-          },
-        ]}
-        blurType={theme}
-        blurAmount={10}
-        reducedTransparencyFallbackColor={theme}
-      />
     </>
   );
 };

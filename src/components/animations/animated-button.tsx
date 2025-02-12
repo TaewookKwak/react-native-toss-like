@@ -1,4 +1,4 @@
-import React, {useEffect, ReactNode} from 'react';
+import React, {useEffect} from 'react';
 import {Gesture, GestureDetector} from 'react-native-gesture-handler';
 import Animated, {
   useAnimatedStyle,
@@ -8,25 +8,39 @@ import Animated, {
 import {colors} from 'src/styles/color';
 import useThemeStore from 'src/utils/zustand/themeStore';
 
-type AnimatedButtonProps = {
-  children: ReactNode;
+interface AnimatedButtonProps extends React.PropsWithChildren {
+  /** 버튼 비활성화 여부 */
+  disabled?: boolean;
+  /** 버튼의 세로 패딩 */
   paddingVertical?: number;
+  /** 버튼의 가로 패딩 */
   paddingHorizontal?: number;
+  /** 버튼의 세로 마진 */
   marginVertical?: number;
+  /** 버튼의 가로 마진 */
   marginHorizontal?: number;
+  /** 버튼의 기본 배경색 */
   backgroundColor?: string;
+  /** 버튼이 눌렸을 때의 배경색 */
   foucsedBackgroundColor?: string;
-};
+  /** 버튼 클릭 시 실행될 함수 */
+  onPress?: () => void;
+  /** 버튼 스타일 */
+  style?: React.ComponentProps<typeof Animated.View>['style'];
+}
 
-const AnimatedButton = ({
+const AnimatedButton: React.FC<AnimatedButtonProps> = ({
   children,
-  paddingVertical,
-  paddingHorizontal,
-  marginVertical,
-  marginHorizontal,
-  backgroundColor,
-  foucsedBackgroundColor,
-}: AnimatedButtonProps) => {
+  disabled = false,
+  paddingVertical = 0,
+  paddingHorizontal = 0,
+  marginVertical = 0,
+  marginHorizontal = 0,
+  backgroundColor = 'transparent',
+  foucsedBackgroundColor = 'transparent',
+  onPress,
+  style,
+}) => {
   const {theme} = useThemeStore();
   const scaleValue = useSharedValue(1);
   const backgroundColorValue = useSharedValue(backgroundColor);
@@ -57,6 +71,7 @@ const AnimatedButton = ({
     () =>
       Gesture.Tap()
         .maxDuration(10000)
+        .enabled(!disabled)
         .onBegin(() => {
           scaleValue.value = 0.95;
           backgroundColorValue.value =
@@ -67,6 +82,7 @@ const AnimatedButton = ({
           backgroundColorValue.value = backgroundColor;
         }),
     [
+      disabled,
       backgroundColorValue,
       scaleValue,
       theme,
@@ -77,19 +93,9 @@ const AnimatedButton = ({
 
   return (
     <GestureDetector gesture={tap}>
-      <Animated.View style={[animatedStyles]}>{children}</Animated.View>
+      <Animated.View style={[animatedStyles, style]}>{children}</Animated.View>
     </GestureDetector>
   );
-};
-
-AnimatedButton.defaultProps = {
-  children: null,
-  paddingVertical: 0,
-  paddingHorizontal: 0,
-  marginVertical: 0,
-  marginHorizontal: 0,
-  backgroundColor: 'transparent',
-  foucsedBackgroundColor: 'transparent',
 };
 
 export default AnimatedButton;

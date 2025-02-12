@@ -62,10 +62,7 @@ const HomePage = () => {
         {backgroundColor: colors[theme].lightGray, paddingTop: insets.top + 50},
       ]}>
       <ScrollView
-        contentContainerStyle={{
-          paddingVertical: 10,
-          paddingBottom: insets.bottom + 60 + 10,
-        }}
+        contentContainerStyle={styles.scrollContainer}
         refreshControl={
           <RefreshControl
             tintColor={colors[theme].darkSlate}
@@ -73,31 +70,22 @@ const HomePage = () => {
             onRefresh={onRefresh}
           />
         }>
-        {/* 토스뱅크 */}
-        <View style={{gap: 10}}>
-          <Pressable
-            onPressOut={() => {
-              setIsBottomSheetOpen(true);
-            }}>
+        <View style={styles.mainContent}>
+          <Pressable onPressOut={() => setIsBottomSheetOpen(true)}>
             <LinkButton
               text="토스뱅크"
-              containerStyle={{
-                marginVertical: 12,
-                marginHorizontal: 12,
-              }}
+              textStyle={styles.bankLinkText}
+              containerStyle={styles.bankLinkButton}
             />
           </Pressable>
 
-          {/* 내 계좌 미리보기 */}
           <FlatList
             scrollEnabled={false}
             data={bankInfoList}
-            contentContainerStyle={{
-              backgroundColor: colors[theme].white,
-              borderRadius: 12,
-              gap: 10,
-              paddingTop: 12,
-            }}
+            contentContainerStyle={[
+              styles.accountList,
+              {backgroundColor: colors[theme].white},
+            ]}
             keyExtractor={item => item?.id?.toString()}
             renderItem={({item}) => (
               <AnimatedButton foucsedBackgroundColor={colors[theme].mediumGray}>
@@ -111,15 +99,20 @@ const HomePage = () => {
                         />
                       }>
                       <Text.Common style={styles.text}>
-                        {item?.name}
-                      </Text.Common>
-                      <Text.Common style={styles.subText}>
                         {formatAmount(item?.amount)}
+                      </Text.Common>
+                      <Text.Common
+                        style={[
+                          styles.subText,
+                          {
+                            color: colors[theme].slateGray,
+                          },
+                        ]}>
+                        {item?.name}
                       </Text.Common>
                     </Item.Prefix>
 
-                    <Item.Suffix
-                      style={{position: 'absolute', right: 12, zIndex: 20}}>
+                    <Item.Suffix>
                       <Button
                         text="입금"
                         onPress={() => {
@@ -141,13 +134,10 @@ const HomePage = () => {
             }
           />
 
-          {/* 이번 달 요약 */}
           <View
             style={[
-              styles.box,
-              {
-                backgroundColor: colors[theme].white,
-              },
+              styles.monthSummaryContainer,
+              {backgroundColor: colors[theme].white},
             ]}>
             <AnimatedButton foucsedBackgroundColor={colors[theme].mediumGray}>
               <Pressable>
@@ -197,15 +187,11 @@ const HomePage = () => {
             </AnimatedButton>
           </View>
 
-          {/* 계좌개설/카드발급/대출받기 */}
           <FlatList
-            contentContainerStyle={{
-              backgroundColor: colors[theme].white,
-              borderRadius: 12,
-              alignSelf: 'stretch',
-              flex: 1,
-              justifyContent: 'space-evenly',
-            }}
+            contentContainerStyle={[
+              styles.serviceGrid,
+              {backgroundColor: colors[theme].white},
+            ]}
             data={bankServiceList}
             horizontal={true}
             scrollEnabled={false}
@@ -213,13 +199,12 @@ const HomePage = () => {
               <AnimatedButton
                 key={item?.id}
                 foucsedBackgroundColor={colors[theme].mediumGray}>
-                <Pressable style={{marginVertical: 20, marginHorizontal: 36}}>
+                <Pressable style={styles.serviceGridItem}>
                   <Text.Common
-                    style={{
-                      fontSize: 16,
-                      fontWeight: '600',
-                      color: colors[theme].slateGray,
-                    }}>
+                    style={[
+                      styles.serviceGridText,
+                      {color: colors[theme].slateGray},
+                    ]}>
                     {item?.name}
                   </Text.Common>
                 </Pressable>
@@ -231,36 +216,20 @@ const HomePage = () => {
             )}
           />
 
-          {/* 기타서비스 */}
           <FlatList
             scrollEnabled={false}
             data={etcServiceList}
             contentContainerStyle={[
-              styles.box,
-              {
-                backgroundColor: colors[theme].white,
-              },
+              styles.recommendationContainer,
+              {backgroundColor: colors[theme].white},
             ]}
-            keyExtractor={item => item?.id?.toString()}
             ListHeaderComponent={
-              <Item
-                style={{
-                  marginHorizontal: 12,
-                  paddingVertical: 12,
-                }}>
+              <Item style={styles.recommendationHeader}>
                 <Item.Prefix>
-                  <Text.Common
-                    style={{
-                      fontSize: 16,
-                      fontWeight: '400',
-                    }}>
+                  <Text.Common style={styles.dateLabel}>
                     {getToday()}
                   </Text.Common>
-                  <Text.Common
-                    style={{
-                      fontSize: 18,
-                      fontWeight: '700',
-                    }}>
+                  <Text.Common style={styles.welcomeText}>
                     곽태욱님을 위해 준비했어요
                   </Text.Common>
                 </Item.Prefix>
@@ -285,33 +254,23 @@ const HomePage = () => {
           />
         </View>
 
-        {/* 바텀시트 */}
         <BottomSheet
           isOpen={isBottomSheetOpen}
           setIsOpen={setIsBottomSheetOpen}
           snapPoint={['70%']}>
           <Text.Common
-            style={{
-              color: colors[theme].darkSlate,
-              fontSize: 20,
-              fontWeight: '700',
-              paddingHorizontal: 24,
-              paddingBottom: 30,
-            }}>
+            style={[styles.bottomSheetTitle, {color: colors[theme].darkSlate}]}>
             자산 추가
           </Text.Common>
           <FlatList
             data={assetLists}
-            style={{
-              paddingHorizontal: 12,
-            }}
+            style={styles.assetListContainer}
             renderItem={({item}) => <IconTextList data={item} />}
             keyExtractor={item => item?.id?.toString()}
           />
         </BottomSheet>
       </ScrollView>
 
-      {/* 해더 blur 처리 때문에 뒤로 위치 */}
       <Header />
     </View>
   );
@@ -324,17 +283,76 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 12,
   },
-  text: {
-    fontSize: 14,
+  scrollContainer: {
+    paddingVertical: 10,
+    paddingBottom: 70,
   },
-  subText: {
-    fontSize: 20,
+  mainContent: {
+    gap: 10,
+  },
+  bankLinkButton: {
+    marginVertical: 6,
+    marginHorizontal: 12,
+  },
+  bankLinkText: {
+    fontSize: 16,
     fontWeight: '600',
   },
-  box: {
+  accountList: {
     borderRadius: 12,
     gap: 10,
     paddingTop: 12,
-    paddingBottom: 12,
+  },
+  monthSummaryContainer: {
+    borderRadius: 12,
+    gap: 10,
+    paddingVertical: 12,
+  },
+  serviceGrid: {
+    borderRadius: 12,
+    alignSelf: 'stretch',
+    flex: 1,
+    justifyContent: 'space-evenly',
+  },
+  serviceGridItem: {
+    marginVertical: 20,
+    marginHorizontal: 36,
+  },
+  serviceGridText: {
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  recommendationContainer: {
+    borderRadius: 12,
+    gap: 10,
+    paddingVertical: 12,
+  },
+  recommendationHeader: {
+    marginHorizontal: 12,
+    paddingVertical: 12,
+  },
+  dateLabel: {
+    fontSize: 16,
+    fontWeight: '400',
+  },
+  welcomeText: {
+    fontSize: 18,
+    fontWeight: '700',
+  },
+  bottomSheetTitle: {
+    fontSize: 20,
+    fontWeight: '700',
+    paddingHorizontal: 24,
+    paddingBottom: 30,
+  },
+  assetListContainer: {
+    paddingHorizontal: 12,
+  },
+  text: {
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  subText: {
+    fontSize: 14,
   },
 });
