@@ -1,5 +1,5 @@
 import React from 'react';
-import {Pressable, StyleSheet} from 'react-native';
+import {Platform, Pressable, StyleSheet} from 'react-native';
 import {colors} from 'src/styles/color';
 import useThemeStore from 'src/utils/zustand/themeStore';
 import AnimatedButton from 'src/components/animations/animated-button';
@@ -38,11 +38,11 @@ export default Button;
 const styles = StyleSheet.create({
   text: {
     fontSize: 14,
-    fontWeight: 'bold',
+    fontWeight: Platform.OS === 'ios' ? '700' : '400',
   },
   container: {
-    paddingVertical: 10,
-    paddingHorizontal: 14,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
     borderRadius: 8,
   },
 });
