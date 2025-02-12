@@ -281,11 +281,11 @@ export default HomePage;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 12,
   },
   scrollContainer: {
     paddingVertical: 10,
     paddingBottom: 70,
+    paddingHorizontal: 12,
   },
   mainContent: {
     gap: 10,
