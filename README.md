@@ -11,22 +11,26 @@
 - **인터랙션 애니메이팅**: 사용자 경험을 향상시키기 위한 다양한 애니메이션 구현.
 - **다크 모드 적용**: 다양한 환경에서도 최적의 사용자 경험을 제공하기 위한 다크 모드 지원.
 
-## 정보
+## 개발 환경
 
-- **버전**: 0.72
-- **지원 OS**: iOS, Android
+- macOS 14.4
+- node LTS
+- npm 7.18.1
+- yarn 1.22.19
+- react 18.2.0
+- react-native 0.72.8
 
 ## 설치 및 실행
 
 ```bash
 # 저장소 클론
-git clone https://github.com/yourusername/react-native-toss-like.git
-
-# 디렉토리로 이동
-cd react-native-toss-like
+git clone
 
 # 의존성 설치
-npm install
+yarn install
 
 # 앱 실행
-npm start
+yarn start
+or
+yarn ios
+yarn android
