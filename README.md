@@ -1,6 +1,5 @@
-# react-native-toss-like
+[![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-![Thumbnail iOS](path/to/ios-thumbnail.png) ![Thumbnail Android](path/to/android-thumbnail.png)
 
 ## 소개
 
@@ -34,3 +33,7 @@ yarn start
 or
 yarn ios
 yarn android
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[product-screenshot]: images/screenshot.png
