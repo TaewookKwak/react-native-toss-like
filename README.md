@@ -1,5 +1,25 @@
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
 
+
+<div align="center">
+  <div align="center">
+  <img src="images/ios_screen_capture.png" alt="ios-image" width="250" height="450">
+  <img src="images/ios_screen_gif.gif" alt="ios-video" width="250" height="450">
+    <h3 align="center">
+      [IOS]
+    </p>
+  </div>
+
+  <div align="center">
+  <img src="images/and_screen_capture.jpg" alt="and-image" width="200" height="450">
+  <img src="images/and_screen_gif.gif" alt="and-video" width="200" height="450">
+        <h3 align="center">
+      [Android]
+    </p>
+  </div>
+
+
+  <h3 align="center">react-native로 토스 디자인 만들기</h3>
+</div>
 
 ## 소개
 
@@ -33,7 +53,11 @@ yarn start
 or
 yarn ios
 yarn android
+```
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[product-screenshot]: images/screenshot.png
+[ios-screenshot]: images/ios_screen_capture.png
+[and-screenshot]: images/and_screen_capture.jpg
+[ios-gif]: images/ios_screen_gif.gif
+[and-gif]: images/and_screen_gif.gif
