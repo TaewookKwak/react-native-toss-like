@@ -1,74 +1,340 @@
 import React, {useState} from 'react';
 import {
+  FlatList,
+  ImageSourcePropType,
   Pressable,
+  RefreshControl,
   ScrollView,
   StyleSheet,
-  Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {colors} from 'src/styles/color';
+import {formatAmount, getToday} from 'src/utils/common';
+import {
+  assetLists,
+  bankInfoList,
+  bankServiceList,
+  etcServiceList,
+} from 'src/utils/constants';
+import useThemeStore from 'src/utils/zustand/themeStore';
+import AnimatedButton from 'src/components/animations/animated-button';
+import Item from 'src/components/items/list';
+import IconTextList from 'src/components/lists/icon-text-list';
+import Button from 'src/components/ui/buttons/button';
+import LinkButton from 'src/components/ui/buttons/link-button';
+import LinkCenterButton from 'src/components/ui/buttons/link-center-button';
+import Divider from 'src/components/ui/dividers/divider';
+import Header from 'src/components/ui/header/header-home';
+import Text from 'src/components/ui/text/text';
 import BottomSheet from '../components/ui/bottomsheets/bottomsheet.component';
-import DiarySelectLocationScreen from './diary/modal/diary-select-location-modal';
+import {Image} from 'react-native';
+import {toss_card} from 'src/utils/icons';
+import DdayText from 'src/components/ui/text/d-day-text';
 
-const HomeScreen = () => {
+const wait = (timeout: number) => {
+  return new Promise(resolve => setTimeout(resolve, timeout));
+};
+
+const HomePage = () => {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false); // 바텀시트 열림 여부
+  const {theme} = useThemeStore();
+  const insets = useSafeAreaInsets();
+
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
+
+  if (refreshing) {
+    // 스피너 돌아가게
+    <View>
+      <Text.Common>로딩중</Text.Common>
+    </View>;
+  }
 
   return (
-    <SafeAreaView style={{flex: 1}}>
-      {/* <Text>HomeScreen</Text>
-      <Pressable
-        onPress={() => {
-          setIsBottomSheetOpen(true);
-        }}>
-        <Text>바텀 시트 열기</Text>
-      </Pressable> */}
+    <View
+      style={[
+        styles.container,
+        {backgroundColor: colors[theme].lightGray, paddingTop: insets.top + 50},
+      ]}>
+      <ScrollView
+        contentContainerStyle={{
+          paddingVertical: 10,
+          paddingBottom: insets.bottom + 60 + 10,
+        }}
+        refreshControl={
+          <RefreshControl
+            tintColor={colors[theme].darkSlate}
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+        }>
+        {/* 토스뱅크 */}
+        <View style={{gap: 10}}>
+          <Pressable
+            onPressOut={() => {
+              setIsBottomSheetOpen(true);
+            }}>
+            <LinkButton
+              text="토스뱅크"
+              containerStyle={{
+                marginVertical: 12,
+                marginHorizontal: 12,
+              }}
+            />
+          </Pressable>
 
-      <DiarySelectLocationScreen />
+          {/* 내 계좌 미리보기 */}
+          <FlatList
+            scrollEnabled={false}
+            data={bankInfoList}
+            contentContainerStyle={{
+              backgroundColor: colors[theme].white,
+              borderRadius: 12,
+              gap: 10,
+              paddingTop: 12,
+            }}
+            keyExtractor={item => item?.id?.toString()}
+            renderItem={({item}) => (
+              <AnimatedButton foucsedBackgroundColor={colors[theme].mediumGray}>
+                <Pressable>
+                  <Item key={item?.id} style={{marginHorizontal: 12}}>
+                    <Item.Prefix
+                      renderPrefix={
+                        <Image
+                          source={item?.iconName as ImageSourcePropType}
+                          style={{width: 24, height: 24}}
+                        />
+                      }>
+                      <Text.Common style={styles.text}>
+                        {item?.name}
+                      </Text.Common>
+                      <Text.Common style={styles.subText}>
+                        {formatAmount(item?.amount)}
+                      </Text.Common>
+                    </Item.Prefix>
 
-      {/*  바텀 시트 */}
-      <BottomSheet isOpen={isBottomSheetOpen} setIsOpen={setIsBottomSheetOpen}>
-        <View style={styles.contentContainer}>
-          <ScrollView style={styles.scrollView}>
-            {Array.from({length: 10}).map((_, index) => (
-              <TouchableOpacity style={styles.folderContainer} key={index}>
-                <View style={styles.folderImg} />
-                <Text style={styles.folderName}>폴더명</Text>
-              </TouchableOpacity>
-            ))}
-          </ScrollView>
+                    <Item.Suffix
+                      style={{position: 'absolute', right: 12, zIndex: 20}}>
+                      <Button
+                        text="입금"
+                        onPress={() => {
+                          console.log('입금');
+                        }}
+                      />
+                    </Item.Suffix>
+                  </Item>
+                </Pressable>
+              </AnimatedButton>
+            )}
+            ListFooterComponent={
+              <>
+                <Divider.Horizontal style={{marginHorizontal: 24}} />
+                <Pressable>
+                  <LinkCenterButton text="내 계좌/대출/증권/포인트 보기" />
+                </Pressable>
+              </>
+            }
+          />
+
+          {/* 이번 달 요약 */}
+          <View
+            style={[
+              styles.box,
+              {
+                backgroundColor: colors[theme].white,
+              },
+            ]}>
+            <AnimatedButton foucsedBackgroundColor={colors[theme].mediumGray}>
+              <Pressable>
+                <Item style={{marginHorizontal: 12}}>
+                  <Item.Prefix
+                    renderPrefix={
+                      <Image
+                        source={toss_card}
+                        style={{width: 40, height: 40}}
+                        resizeMode="contain"
+                      />
+                    }>
+                    <Text.Common style={styles.text}>4월에 쓴 돈</Text.Common>
+                    <Text.Common style={styles.subText}>
+                      {formatAmount(15000000)}
+                    </Text.Common>
+                  </Item.Prefix>
+
+                  <Item.Suffix
+                    style={{position: 'absolute', right: 12, zIndex: 20}}>
+                    <Button
+                      text="납부"
+                      onPress={() => {
+                        console.log('입금');
+                      }}
+                    />
+                  </Item.Suffix>
+                </Item>
+              </Pressable>
+            </AnimatedButton>
+
+            <Divider.Horizontal style={{marginHorizontal: 24}} />
+
+            <AnimatedButton foucsedBackgroundColor={colors[theme].mediumGray}>
+              <Pressable>
+                <Item style={{marginHorizontal: 12}}>
+                  <Item.Prefix renderPrefix={<DdayText date="2024-05-13" />}>
+                    <Text.Common style={styles.text}>
+                      4월 25일날 낼 카드 값
+                    </Text.Common>
+                    <Text.Common style={styles.subText}>
+                      {formatAmount(12399000)}
+                    </Text.Common>
+                  </Item.Prefix>
+                </Item>
+              </Pressable>
+            </AnimatedButton>
+          </View>
+
+          {/* 계좌개설/카드발급/대출받기 */}
+          <FlatList
+            contentContainerStyle={{
+              backgroundColor: colors[theme].white,
+              borderRadius: 12,
+              alignSelf: 'stretch',
+              flex: 1,
+              justifyContent: 'space-evenly',
+            }}
+            data={bankServiceList}
+            horizontal={true}
+            scrollEnabled={false}
+            renderItem={({item}) => (
+              <AnimatedButton
+                key={item?.id}
+                foucsedBackgroundColor={colors[theme].mediumGray}>
+                <Pressable style={{marginVertical: 20, marginHorizontal: 36}}>
+                  <Text.Common
+                    style={{
+                      fontSize: 16,
+                      fontWeight: '600',
+                      color: colors[theme].slateGray,
+                    }}>
+                    {item?.name}
+                  </Text.Common>
+                </Pressable>
+              </AnimatedButton>
+            )}
+            keyExtractor={item => item?.id?.toString()}
+            ItemSeparatorComponent={() => (
+              <Divider.Vertical style={{marginVertical: 12}} />
+            )}
+          />
+
+          {/* 기타서비스 */}
+          <FlatList
+            scrollEnabled={false}
+            data={etcServiceList}
+            contentContainerStyle={[
+              styles.box,
+              {
+                backgroundColor: colors[theme].white,
+              },
+            ]}
+            keyExtractor={item => item?.id?.toString()}
+            ListHeaderComponent={
+              <Item
+                style={{
+                  marginHorizontal: 12,
+                  paddingVertical: 12,
+                }}>
+                <Item.Prefix>
+                  <Text.Common
+                    style={{
+                      fontSize: 16,
+                      fontWeight: '400',
+                    }}>
+                    {getToday()}
+                  </Text.Common>
+                  <Text.Common
+                    style={{
+                      fontSize: 18,
+                      fontWeight: '700',
+                    }}>
+                    곽태욱님을 위해 준비했어요
+                  </Text.Common>
+                </Item.Prefix>
+              </Item>
+            }
+            renderItem={({item}) => (
+              <LinkButton
+                text={item?.name}
+                image={item?.iconName as ImageSourcePropType}
+                textStyle={{fontSize: 18, fontWeight: '400'}}
+                containerStyle={{}}
+              />
+            )}
+            ListFooterComponent={
+              <>
+                <Divider.Horizontal style={{marginHorizontal: 24}} />
+                <Pressable>
+                  <LinkCenterButton text="추천 서비스 더보기" />
+                </Pressable>
+              </>
+            }
+          />
         </View>
-      </BottomSheet>
-    </SafeAreaView>
+
+        {/* 바텀시트 */}
+        <BottomSheet
+          isOpen={isBottomSheetOpen}
+          setIsOpen={setIsBottomSheetOpen}
+          snapPoint={['70%']}>
+          <Text.Common
+            style={{
+              color: colors[theme].darkSlate,
+              fontSize: 20,
+              fontWeight: '700',
+              paddingHorizontal: 24,
+              paddingBottom: 30,
+            }}>
+            자산 추가
+          </Text.Common>
+          <FlatList
+            data={assetLists}
+            style={{
+              paddingHorizontal: 12,
+            }}
+            renderItem={({item}) => <IconTextList data={item} />}
+            keyExtractor={item => item?.id?.toString()}
+          />
+        </BottomSheet>
+      </ScrollView>
+
+      {/* 해더 blur 처리 때문에 뒤로 위치 */}
+      <Header />
+    </View>
   );
 };
 
-export default HomeScreen;
+export default HomePage;
 
 const styles = StyleSheet.create({
-  contentContainer: {
-    // 인디케이터 바 아래 컨텐츠 스타일
-    marginBottom: 20,
+  container: {
+    flex: 1,
+    paddingHorizontal: 12,
   },
-  scrollView: {
-    paddingHorizontal: 20, // 스크롤바 안으로 들어가는 문제 해결
+  text: {
+    fontSize: 14,
   },
-  folderContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-    marginBottom: 28,
+  subText: {
+    fontSize: 20,
+    fontWeight: '600',
   },
-  folderImg: {
-    width: 56,
-    height: 56,
-    backgroundColor: 'lightgrey',
-  },
-  folderName: {
-    fontSize: 18,
-    fontWeight: '400',
-    lineHeight: 27,
-    letterSpacing: -0.18,
-    color: '#171717',
+  box: {
+    borderRadius: 12,
+    gap: 10,
+    paddingTop: 12,
+    paddingBottom: 12,
   },
 });

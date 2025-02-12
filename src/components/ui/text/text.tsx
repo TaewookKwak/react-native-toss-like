@@ -1,9 +1,11 @@
 import React from 'react';
-import {StyleProp, StyleSheet, Text as RnText, TextStyle} from 'react-native';
+import {Text as RnText, StyleProp, StyleSheet, TextStyle} from 'react-native';
+import {colors} from 'src/styles/color';
+import useThemeStore from 'src/utils/zustand/themeStore';
 
 type TextProps = {
   children: React.ReactNode;
-  style?: StyleProp<TextStyle>;
+  style?: StyleProp<TextStyle> | TextStyle | undefined;
   numberOfLines?: number;
   ellipsizeMode?: 'head' | 'middle' | 'tail' | 'clip';
   [key: string]: any;
@@ -11,27 +13,17 @@ type TextProps = {
 
 const Text = () => {};
 
-/**
- * @param {React.ReactNode} children
- * @param {StyleProp<TextStyle>} style
- * @param {number} numberOfLines
- * @param {'head' | 'middle' | 'tail' | 'clip'} ellipsizeMode
- * @param {any} props
- * @returns <Text />
- */
 const Common = ({
   children,
   style,
-  fontFamily,
-  fontSize,
-  fontWeight,
   numberOfLines,
   ellipsizeMode,
   ...props
 }: TextProps) => {
+  const {theme} = useThemeStore();
   return (
     <RnText
-      style={[styles.text, {fontFamily, fontSize, fontWeight}, style]}
+      style={[styles.text, {color: colors[theme].darkSlate}, style]}
       numberOfLines={numberOfLines}
       ellipsizeMode={ellipsizeMode}
       {...props}>
@@ -43,25 +35,11 @@ const Common = ({
 const styles = StyleSheet.create({
   // 기본 폰트 스타일
   text: {
-    fontFamily: 'Galmuri11-Regular',
     fontSize: 13,
-    fontStyle: 'normal',
     fontWeight: '400',
-    lineHeight: 19.5,
-    letterSpacing: -0.13,
   },
 });
 
 Text.Common = Common;
-
-Text.defaultProps = {
-  children: null,
-  fontFamily: 'Galmuri11-Regular',
-  fontSize: 13,
-  fontWeight: '400',
-  numberOfLines: 1,
-  ellipsizeMode: 'tail',
-  style: {},
-};
 
 export default Text;

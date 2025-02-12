@@ -1,30 +1,16 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import TossTabs from '~navigations/bottom-tab';
+import TossTabs from 'src/navigations/bottom-tab';
 
-import LetterScreen from '@screens/letter/letter';
-import WriteScreen from '@screens/letter/write';
-import WriteCompleteScreen from '@screens/letter/write-complete';
-import LoginPage from '@screens/login';
-import WelcomePage from '@screens/welcome';
 import React, {useEffect, useState} from 'react';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {storage} from 'src_toss/utils/mmkv';
-import useThemeStore from 'src_toss/utils/zustand/themeStore';
-import Tabs from '@navigations/bottom-tabs';
-import DiarySelectPhotoScreen from '@screens/diary/modal/diary-select-photo-modal';
-import DiaryWriteFeedScreen from '@screens/diary/modal/diary-write-feed-modal';
-import DiarySelectLocationScreen from '@screens/diary/modal/diary-select-location-modal';
 import {enableLatestRenderer} from 'react-native-maps';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+import LoginPage from '@screens/login';
+import WelcomePage from '@screens/welcome';
+import {storage} from '@utils/mmkv';
+import useThemeStore from '@utils/zustand/themeStore';
 
 enableLatestRenderer();
 
@@ -70,52 +56,6 @@ const Auth = () => {
   );
 };
 
-// const MainGroup: StackGroupProps[] = [
-//   {
-//     name: 'LetterBoxScreen',
-//     component: LetterBoxScreen,
-//   },
-//   {
-//     name: 'DiaryScreen',
-//     component: DiaryScreen,
-//   },
-//   {
-//     name: 'StroyScreen',
-//     component: StoryScreen,
-//   },
-//   {
-//     name: 'HomeScreen',
-//     component: HomeScreen,
-//   },
-// ];
-
-const PostModalGroup: StackGroupProps[] = [
-  {
-    name: 'WriteScreen',
-    component: WriteScreen,
-  },
-  {
-    name: 'LetterScreen',
-    component: LetterScreen,
-  },
-  {
-    name: 'WriteCompleteScreen',
-    component: WriteCompleteScreen,
-  },
-  {
-    name: 'ModalSelectPhoto',
-    component: DiarySelectPhotoScreen,
-  },
-  {
-    name: 'ModalWriteFeed',
-    component: DiaryWriteFeedScreen,
-  },
-  {
-    name: 'ModalSelectLocation',
-    component: DiarySelectLocationScreen,
-  },
-];
-
 function App() {
   const [isLoggedIn] = useState(true);
   const {setTheme} = useThemeStore();
@@ -142,20 +82,6 @@ function App() {
                         headerShown: false,
                       }}
                     />
-                  </Stack.Group>
-
-                  <Stack.Group
-                    screenOptions={{
-                      presentation: 'fullScreenModal',
-                      headerShown: false,
-                    }}>
-                    {PostModalGroup.map(item => (
-                      <Stack.Screen
-                        key={item.name}
-                        name={item.name}
-                        component={item.component}
-                      />
-                    ))}
                   </Stack.Group>
                 </>
               ) : (
