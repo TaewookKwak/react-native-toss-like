@@ -1,30 +1,25 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {Canvas, Circle, Group} from '@shopify/react-native-skia';
+import {Button, SafeAreaView} from 'react-native';
+import {Canvas} from '@shopify/react-native-skia';
+import JumpSprite from '@components/sprite-sheets/jump-sprite';
+import RunSprite from '@components/sprite-sheets/run-sprite';
+import AttackSprite from '@components/sprite-sheets/attack-sprite';
 import {colors} from 'src/styles/color';
 import useThemeStore from 'src/utils/zustand/themeStore';
+import {useIsFocused} from '@react-navigation/native';
 
 const AllPage = () => {
   const {theme} = useThemeStore();
-  const width = 256;
-  const height = 256;
-  const r = width * 0.33;
-
+  const isFocused = useIsFocused();
   return (
-    <SafeAreaView style={{backgroundColor: colors[theme].lightGray}}>
-      <Text>AllPage</Text>
-      <Canvas style={{width, height}}>
-        <Group blendMode="multiply">
-          <Circle cx={r} cy={r} r={r} color="cyan" />
-          <Circle cx={width - r} cy={r} r={r} color="magenta" />
-          <Circle cx={width / 2} cy={width - r} r={r} color="yellow" />
-        </Group>
+    <SafeAreaView style={{flex: 1, backgroundColor: colors[theme].lightGray}}>
+      <Canvas style={{flex: 1}}>
+        <JumpSprite x={0} y={0} isFocused={isFocused} />
+        <RunSprite x={0} y={120} isFocused={isFocused} />
+        <AttackSprite x={0} y={240} isFocused={isFocused} />
       </Canvas>
     </SafeAreaView>
   );
 };
 
 export default AllPage;
-
-const styles = StyleSheet.create({});

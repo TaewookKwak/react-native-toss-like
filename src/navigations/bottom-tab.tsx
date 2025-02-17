@@ -73,6 +73,7 @@ const Tabs = () => {
           name={tab.name}
           component={tab.component}
           options={{
+            lazy: true,
             headerShown: false,
             title: tab.label,
             tabBarIcon: props =>
