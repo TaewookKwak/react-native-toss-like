@@ -10,6 +10,7 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {storage} from './src/utils/mmkv';
 import useThemeStore from './src/utils/zustand/themeStore';
 import HomePage from '@screens/home';
+import SplashScreen from 'react-native-splash-screen';
 
 enableLatestRenderer();
 
@@ -29,6 +30,12 @@ function App() {
     const _theme = storage.getString('theme');
     setTheme(_theme as 'light' | 'dark');
   }, [setTheme]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      SplashScreen.hide();
+    }, 1000); //스플래시 활성화 시간
+  });
 
   return (
     <GestureHandlerRootView style={{flex: 1}}>

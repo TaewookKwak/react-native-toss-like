@@ -1,10 +1,12 @@
 package com.v72;
 
+import android.os.Bundle; // 추가
+
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
 import com.facebook.react.defaults.DefaultReactActivityDelegate;
-
+import org.devio.rn.splashscreen.SplashScreen; // splash screen 패키지 추가
 public class MainActivity extends ReactActivity {
 
   /**
@@ -28,5 +30,11 @@ public class MainActivity extends ReactActivity {
         getMainComponentName(),
         // If you opted-in for the New Architecture, we enable the Fabric Renderer.
         DefaultNewArchitectureEntryPoint.getFabricEnabled());
+  }
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    SplashScreen.show(this);  // 스플래시 화면을 보여주는 코드 추가
+    super.onCreate(savedInstanceState);
   }
 }

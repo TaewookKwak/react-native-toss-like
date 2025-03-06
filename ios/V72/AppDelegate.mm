@@ -4,6 +4,8 @@
 
 #import <GoogleMaps/GoogleMaps.h>
 
+#import "RNSplashScreen.h"  // splash screen 패키지 추가
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -15,7 +17,17 @@
   // They will be passed down to the ViewController used by React Native.
   self.initialProps = @{};
 
-  return [super application:application didFinishLaunchingWithOptions:launchOptions];
+  // return [super application:application didFinishLaunchingWithOptions:launchOptions];
+
+  [super application:application didFinishLaunchingWithOptions:launchOptions];
+
+  // 스플래시 화면 표시
+  [RNSplashScreen show];  // 기본 스플래시 화면 표시
+
+  // 또는 커스텀 스플래시 화면을 사용하려면 다음을 사용할 수 있습니다:
+  // [RNSplashScreen showSplash:@"LaunchScreen" inRootView:rootView];
+
+  return YES;
 }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
